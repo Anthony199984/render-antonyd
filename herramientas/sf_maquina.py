@@ -64,13 +64,17 @@ k0, k1 = tr.get('k0', 0), tr.get('k1', 0); SALV = f'{SAL}/trozo_{ID}.mp4'
 estado = {'fin_tareas': False, 'error': None, 'n_dentro': 0}
 
 
+# tabla de color escrita en el video (sin ella, los teléfonos adivinan y en 4K salen colores rojizos)
+COLOR = ['-vf', 'scale=out_color_matrix=bt709:out_range=tv', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv']
+
+
 def armar():
     """Va comprimiendo el pedazo de video EN ORDEN mientras los procesos renderizan (mismo codificador que tomas/tramo.py)."""
     try:
         import imageio_ffmpeg
         ff = imageio_ffmpeg.get_ffmpeg_exe()
         p = subprocess.Popen([ff, '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{A}x{H}', '-r', str(FPS), '-i', '-',
-                              '-c:v', 'libx264', '-crf', '18', '-pix_fmt', 'yuv420p', SALV], stdin=subprocess.PIPE)
+                              '-c:v', 'libx264', '-crf', '18', '-pix_fmt', 'yuv420p', *COLOR, SALV], stdin=subprocess.PIPE)
         for k in range(k0, k1):
             d = interior(k)
             ruta = f'{RAIZ}/dentro/cuadros_{d[0]}_1080/{d[1]:05d}.jpg' if d else f'{CRUDO}/{k:05d}.npy'

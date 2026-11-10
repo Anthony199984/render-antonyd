@@ -19,6 +19,6 @@ def armar(job, tz, sal, salida_mp4):
     if k == 0: return 0
     fps_in, fps_out = job.get('fps', 15), job.get('video_fps', 30)
     subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), '-y', '-loglevel', 'error', '-framerate', str(fps_in), '-i', f'{tmp}/%05d.png',
-                    '-vf', f'fps={fps_out},scale=trunc(iw/2)*2:trunc(ih/2)*2', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20',
+                    '-vf', f'fps={fps_out},scale=trunc(iw/2)*2:trunc(ih/2)*2:out_color_matrix=bt709:out_range=tv', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20',
                     '-pix_fmt', 'yuv420p', '-r', str(fps_out), salida_mp4], check=True)
     shutil.rmtree(tmp); return k
