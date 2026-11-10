@@ -1,0 +1,48 @@
+[0;93m2026-11-10 20:09:56.866028393 [W:onnxruntime:Default, device_discovery.cc:146 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+/home/claude/superfuerza/calle_vida.py:42: RuntimeWarning: invalid value encountered in divide
+  a, b = np.asarray(a, float), np.asarray(b, float); d = b - a; d = d / np.linalg.norm(d)
+escena 453 6.50s
+escena 454 1.11s
+escena 455 1.18s
+escena 456 1.09s
+escena 457 1.11s
+escena 458 1.07s
+escena 459 1.04s
+escena 460 1.15s
+escena 461 1.04s
+escena 462 1.06s
+escena 463 1.07s
+escena 464 1.06s
+escena 465 1.07s
+escena 466 1.07s
+escena 467 1.08s
+escena 468 1.08s
+escena 469 1.08s
+escena 470 1.09s
+escena 471 1.09s
+escena 472 1.08s
+escena 473 1.16s
+escena 474 1.09s
+escena 475 1.08s
+escena 476 1.13s
+escena 477 1.10s
+escena 478 1.09s
+escena 479 1.08s
+escena 480 1.07s
+escena 481 1.07s
+escena 482 1.06s
+escena 483 1.06s
+escena 484 1.08s
+escena 485 1.06s
+escena 486 1.09s
+escena 487 1.12s
+escena 488 1.17s
+escena 489 1.24s
+escena 490 1.31s
+escena 491 1.33s
+escena 492 1.34s
+escena 493 1.30s
+escena 494 1.41s
+escena 495 1.18s
+escena 496 1.34s
+OK escena 44 68.9s
