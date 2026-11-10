@@ -56,7 +56,8 @@ else:
     if num == 'abs': assert abs(M.T0 - a) < 1e-9 and M.FPS == 60, (M.T0, M.FPS)
     obj = getattr(M, clase)(A)
     med['arranque'] = time.time() - t_ini
-    carpeta = f'{RAIZ}/dentro/cuadros_{nombre}_1080'                     # nombre fijo: DENTRO=1080 (60 c/s); el tamaño real es A; os.makedirs(carpeta, exist_ok=True)
+    carpeta = f'{RAIZ}/dentro/cuadros_{nombre}_1080'                     # nombre fijo: DENTRO=1080 (60 c/s); el tamaño real es A
+    os.makedirs(carpeta, exist_ok=True)
     paso = 1 / M.FPS if prog == 'brazo_sf' else 1 / 60
     for f in lista:
         ruta = f'{carpeta}/{f:05d}.jpg'

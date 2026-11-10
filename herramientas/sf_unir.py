@@ -26,7 +26,7 @@ if plan.get('modo') == 'medir':
     inf += ['', 'Preparar máquina (s): ' + ', '.join(f'{k}={v[1]}' for k, v in sorted(tiempos.items()))]
     open(f'{SAL}/INFORME.md', 'w').write('\n'.join(inf) + '\n'); print('\n'.join(inf)); sys.exit(0)
 
-orden = sorted(plan['trozos'], key=lambda t: t['k0'])
+orden = sorted(plan['trozos'] + plan.get('previos', []), key=lambda t: t['k0'])
 faltan = [t['id'] for t in orden if not glob.glob(f"{ENT}/trozo-{t['id']}/trozo_{t['id']}.mp4")]
 if faltan: sys.exit(f'FALTAN trozos: {faltan}')
 open('/tmp/lista.txt', 'w').write(''.join(f"file '{os.path.abspath(glob.glob(ENT + '/trozo-' + t['id'] + '/trozo_' + t['id'] + '.mp4')[0])}'\n" for t in orden))
