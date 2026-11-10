@@ -42,8 +42,8 @@ def contar(f):
 
 
 n, fps, res = contar(sin); total = plan['k_total']
-inf += [f"**Video sin sonido:** {n} cuadros (deben ser {total}) · {res} · {fps} FPS · {os.path.getsize(sin) / 1e6:.1f} MB",
-        f"VERIFICADO: {'SÍ' if n == total and res == '1080x1920' else 'NO'}", '']
+inf += [f"**Video sin sonido:** {n} cuadros (deben ser {total}) · {res} (debe ser {plan.get('res', '1080x1920')}) · {fps} FPS · {os.path.getsize(sin) / 1e6:.1f} MB",
+        f"VERIFICADO: {'SÍ' if n == total and res == plan.get('res', '1080x1920') else 'NO'}", '']
 r = [float(v[0]) for v in tiempos.values()]; pr = [float(v[1]) for v in tiempos.values()]
 if r: inf += [f'Render por máquina: el más lento {max(r):.0f} s · el más rápido {min(r):.0f} s · suma {sum(r) / 60:.1f} min de máquina',
               f'Preparar máquina: el más lento {max(pr):.0f} s', '']
@@ -53,7 +53,9 @@ for t in orden:
 
 if AUD:                                                             # el sonido, fuera de la competencia
     t0 = time.time()
-    for wav, nom in (('mezcla_v2.wav', 'superfuerza_final_1080x1920_60fps.mp4'), ('solo_voz.wav', 'superfuerza_final_SOLO_VOZ.mp4')):
+    R = plan.get('res', '1080x1920'); vers = [('mezcla_v2.wav', f'superfuerza_final_{R}_60fps.mp4')]
+    if plan.get('solo_voz', True): vers.append(('solo_voz.wav', 'superfuerza_final_SOLO_VOZ.mp4'))
+    for wav, nom in vers:
         subprocess.run([ff, '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', '/tmp/lista.txt', '-i', f'{AUD}/{wav}', '-map', '0:v', '-map', '1:a',
                         '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', f'{SAL}/{nom}'], check=True)
         n2, _, _ = contar(f'{SAL}/{nom}'); inf.append(f'- {nom}: {n2} cuadros · {os.path.getsize(SAL + "/" + nom) / 1e6:.1f} MB')

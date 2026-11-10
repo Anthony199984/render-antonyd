@@ -99,8 +99,20 @@ def tareas(k0, k1):
     return out
 
 
-def plan_render(nombre, medicion, N):
+def calibrar(costo, plan_viejo, informe):
+    """Corrige el costo con lo que de verdad tardó cada máquina en un render anterior (real / estimado)."""
+    import re
+    P = json.load(open(plan_viejo)); real = {m.group(1): float(m.group(2)) for m in re.finditer(r'máquina (\w+): cuadros .*? render (\d+) s', open(informe).read())}
+    for t in P['trozos']:
+        if t['id'] in real:
+            f = real[t['id']] / t['estimado_s']
+            for k in range(t['k0'], t['k1']): costo[k] *= f
+    return costo
+
+
+def plan_render(nombre, medicion, N, plan_viejo=None, informe=None):
     costo, ie, idn = modelo(medicion)
+    if plan_viejo: costo = calibrar(costo, plan_viejo, informe)
     lo, hi = 1.0, sum(costo) + 1000
     for _ in range(60):
         mid = (lo + hi) / 2
@@ -112,7 +124,8 @@ def plan_render(nombre, medicion, N):
 
 
 if __name__ == '__main__' and sys.argv[1] == 'render':
-    p, tot = plan_render(sys.argv[2], sys.argv[3], int(sys.argv[4]))
+    p, tot = plan_render(sys.argv[2], sys.argv[3], int(sys.argv[4]), *(sys.argv[6:8] if len(sys.argv) > 7 else ()))
+    A = int(sys.argv[5]) if len(sys.argv) > 5 else 1080; H = A * 16 // 9; p['ancho'] = A; p['res'] = f'{A}x{H}'
     assert sum(t['k1'] - t['k0'] for t in p['trozos']) == K and p['trozos'][0]['k0'] == 0 and p['trozos'][-1]['k1'] == K
     json.dump(p, open('trabajos/SF.json', 'w'))
     print(f"costo total estimado {tot / 60:.1f} min de máquina · {len(p['trozos'])} máquinas")

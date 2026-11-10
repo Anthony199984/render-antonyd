@@ -11,7 +11,7 @@ Con MEDIR=1 no guarda nada: solo mide el tiempo de cada cuadro (prueba de costo,
 import sys, os, json, time, resource
 
 RAIZ = '/home/claude/superfuerza'
-FPS, A = 60, 1080
+FPS, A = 60, int(os.environ.get('ANCHO', '1080'))
 tipo, lista, sal = sys.argv[1], json.load(open(sys.argv[2])), sys.argv[3]
 MEDIR = os.environ.get('MEDIR') == '1'
 os.chdir(RAIZ)
@@ -56,7 +56,7 @@ else:
     if num == 'abs': assert abs(M.T0 - a) < 1e-9 and M.FPS == 60, (M.T0, M.FPS)
     obj = getattr(M, clase)(A)
     med['arranque'] = time.time() - t_ini
-    carpeta = f'{RAIZ}/dentro/cuadros_{nombre}_1080'; os.makedirs(carpeta, exist_ok=True)
+    carpeta = f'{RAIZ}/dentro/cuadros_{nombre}_1080'                     # nombre fijo: DENTRO=1080 (60 c/s); el tamaño real es A; os.makedirs(carpeta, exist_ok=True)
     paso = 1 / M.FPS if prog == 'brazo_sf' else 1 / 60
     for f in lista:
         ruta = f'{carpeta}/{f:05d}.jpg'

@@ -16,8 +16,9 @@ from PIL import Image
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = '/home/claude/superfuerza'
-FPS, A, H = 60, 1080, 1920
 plan = json.load(open(sys.argv[1])); ID = sys.argv[2]; SAL = os.path.abspath(sys.argv[3])
+FPS, A = 60, int(plan.get('ancho', 1080)); H = A * 16 // 9; H += H % 2
+os.environ['ANCHO'] = str(A)
 tr = next(t for t in plan['trozos'] if t['id'] == ID)
 os.makedirs(SAL, exist_ok=True)
 CRUDO = '/tmp/crudo'; os.makedirs(CRUDO, exist_ok=True)
