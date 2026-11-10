@@ -1,0 +1,80 @@
+name: Render en varias maquinas
+
+on:
+  push:
+    branches: [main]
+    paths: ["trabajos/ACTUAL.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      trozos: ${{ steps.p.outputs.trozos }}
+      nombre: ${{ steps.p.outputs.nombre }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: trabajos }
+      - id: p
+        run: |
+          python3 -c "import json;d=json.load(open('trabajos/ACTUAL.json'));print('trozos='+json.dumps([t['id'] for t in d['trozos']]));print('nombre='+d['nombre'])" >> "$GITHUB_OUTPUT"
+
+  trozo:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        id: ${{ fromJSON(needs.plan.outputs.trozos) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip, cache-dependency-path: herramientas/requisitos.txt }
+      - name: Preparar maquina
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libegl1 libegl-mesa0 libgl1-mesa-dri libgles2 ffmpeg > /dev/null
+          pip install -q -r herramientas/requisitos.txt
+          sudo ln -sfn "$GITHUB_WORKSPACE/hc" /home/claude
+          nproc; free -g | head -2
+      - name: Renderizar trozo ${{ matrix.id }}
+        env:
+          MUJOCO_GL: egl
+          EGL_PLATFORM: surfaceless
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          GALLIUM_DRIVER: llvmpipe
+          FUENTE: ${{ github.workspace }}/fuentes/Inter-Black.otf
+        run: python3 herramientas/trozo.py trabajos/ACTUAL.json ${{ matrix.id }} salida/${{ matrix.id }}
+      - uses: actions/upload-artifact@v4
+        with: { name: "trozo-${{ matrix.id }}", path: "salida/${{ matrix.id }}", retention-days: 3 }
+
+  unir:
+    needs: [plan, trozo]
+    if: always() && needs.plan.result == 'success'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: salida, pattern: "trozo-*" }
+      - name: Unir el video
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          pip install -q pillow
+          python3 herramientas/unir.py trabajos/ACTUAL.json salida resultado
+      - name: Guardar en la rama resultados
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin resultados || true
+          git checkout -B resultados origin/resultados 2>/dev/null || git checkout --orphan resultados
+          git rm -rqf --cached . > /dev/null 2>&1 || true
+          mkdir -p "${{ needs.plan.outputs.nombre }}"; cp resultado/* "${{ needs.plan.outputs.nombre }}/"
+          git add "${{ needs.plan.outputs.nombre }}"; git commit -qm "Resultado ${{ needs.plan.outputs.nombre }} [skip ci]"
+          git push -q origin resultados
