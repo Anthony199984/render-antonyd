@@ -1,0 +1,19 @@
+[0;93m2026-11-10 19:57:56.850744562 [W:onnxruntime:Default, device_discovery.cc:146 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+/home/claude/superfuerza/calle_vida.py:42: RuntimeWarning: invalid value encountered in divide
+  a, b = np.asarray(a, float), np.asarray(b, float); d = b - a; d = d / np.linalg.norm(d)
+calle: el motor deja la manija de la mano a [ 0. -0.  0.] cm de la del carro → se corrige moviendo a Max
+escena 2084 10.26s
+escena 2129 1.51s
+escena 2174 1.47s
+escena 2219 1.57s
+escena 2264 1.42s
+escena 2309 1.39s
+escena 2354 1.28s
+escena 2399 1.75s
+escena 2444 1.39s
+escena 2489 1.36s
+escena 2534 1.54s
+escena 2579 1.47s
+escena 2624 1.56s
+escena 2662 1.48s
+OK escena 14 45.8s

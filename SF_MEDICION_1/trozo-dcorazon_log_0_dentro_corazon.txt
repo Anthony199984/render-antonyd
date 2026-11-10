@@ -1,0 +1,5 @@
+dentro corazon 0 2.35s
+dentro corazon 85 1.83s
+dentro corazon 171 1.61s
+dentro corazon 256 1.55s
+OK dentro:corazon 4 16.3s

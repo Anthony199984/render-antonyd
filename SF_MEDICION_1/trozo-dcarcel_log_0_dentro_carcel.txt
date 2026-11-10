@@ -1,0 +1,5 @@
+dentro carcel 0 2.94s
+dentro carcel 132 2.50s
+dentro carcel 264 2.14s
+dentro carcel 396 2.17s
+OK dentro:carcel 4 24.6s

@@ -1,0 +1,5 @@
+dentro brazo 0 2.00s
+dentro brazo 97 2.04s
+dentro brazo 195 1.31s
+dentro brazo 292 1.33s
+OK dentro:brazo 4 17.8s
