@@ -46,3 +46,75 @@ if __name__ == '__main__':
         p = plan_medir(nombre)
         json.dump(p, open('trabajos/SF.json', 'w'), indent=1)
         print(len(p['trozos']), 'máquinas de medición;', sum(len(t['cuadros']) for x in p['trozos'] for t in x['tareas']), 'cuadros sueltos')
+
+
+# ============================================================================== reparto por costo (con la medición)
+def modelo(medicion):
+    M = json.load(open(medicion))
+    esc = {}; ini_esc = {}; den = {}; ini_den = {}
+    for m in M:
+        if m['maquina'].startswith('trozo-mpar'): continue
+        c = sorted(m['cuadros'])
+        if m['tipo'] == 'escena':
+            i = tramo(c[0][0]); fijo = c[1][1] if len(c) > 1 else c[0][1]
+            ini_esc[i] = m['arranque'] + max(c[0][1] - fijo, 0)
+            esc[i] = [(c[0][0], fijo)] + [(k, w) for k, w, _ in c[1:]]
+        else:
+            n = m['tipo'].split(':')[1]; ini_den[n] = m['arranque']; den[n] = [(f, w) for f, w, _ in c]
+
+    def interp(pts, x):
+        if x <= pts[0][0]: return pts[0][1]
+        for (a, wa), (b, wb) in zip(pts, pts[1:]):
+            if a <= x <= b: return wa + (wb - wa) * (x - a) / max(b - a, 1)
+        return pts[-1][1]
+    costo = []
+    for k in range(K):
+        d = interior(k)
+        costo.append(0.05 + interp(den[d[0]], d[1]) if d else interp(esc[tramo(k)], k))
+    return costo, ini_esc, ini_den
+
+
+def partir(costo, ini_esc, ini_den, T, FIJO=8.0):
+    """Corta el video en pedazos seguidos que no pasen de T segundos estimados. Devuelve [(k0, k1, costo)]."""
+    trozos = []; k = 0
+    while k < K:
+        a = k; c = FIJO; vistos = set()
+        while k < K:
+            d = interior(k); clave = ('d', d[0]) if d else ('e', tramo(k))
+            extra = costo[k] + (0 if clave in vistos else (ini_den[clave[1]] if d else ini_esc[clave[1]]))
+            if c + extra > T and k > a: break
+            c += extra; vistos.add(clave); k += 1
+        trozos.append((a, k, c))
+    return trozos
+
+
+def tareas(k0, k1):
+    """Procesos de una máquina, en orden de video: escenas por tramo y vistas por dentro."""
+    out = []
+    for k in range(k0, k1):
+        d = interior(k); tipo = f'dentro:{d[0]}' if d else 'escena'; x = d[1] if d else k
+        if out and out[-1]['tipo'] == tipo and (tipo != 'escena' or tramo(out[-1]['cuadros'][-1]) == tramo(k)):
+            if x not in out[-1]['cuadros']: out[-1]['cuadros'].append(x)
+        else: out.append({'tipo': tipo, 'cuadros': [x]})
+    return out
+
+
+def plan_render(nombre, medicion, N):
+    costo, ie, idn = modelo(medicion)
+    lo, hi = 1.0, sum(costo) + 1000
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if len(partir(costo, ie, idn, mid)) <= N: hi = mid
+        else: lo = mid
+    tz = partir(costo, ie, idn, hi)
+    trozos = [{'id': f'{i:02d}', 'k0': a, 'k1': b, 'estimado_s': round(c), 'tareas': tareas(a, b), 'paralelo': 1} for i, (a, b, c) in enumerate(tz)]
+    return {'nombre': nombre, 'modo': 'render', 'k_total': K, 'trozos': trozos}, sum(costo)
+
+
+if __name__ == '__main__' and sys.argv[1] == 'render':
+    p, tot = plan_render(sys.argv[2], sys.argv[3], int(sys.argv[4]))
+    assert sum(t['k1'] - t['k0'] for t in p['trozos']) == K and p['trozos'][0]['k0'] == 0 and p['trozos'][-1]['k1'] == K
+    json.dump(p, open('trabajos/SF.json', 'w'))
+    print(f"costo total estimado {tot / 60:.1f} min de máquina · {len(p['trozos'])} máquinas")
+    for t in p['trozos']:
+        print(t['id'], t['k0'], t['k1'], t['estimado_s'], 's', [(x['tipo'], len(x['cuadros'])) for x in t['tareas']])

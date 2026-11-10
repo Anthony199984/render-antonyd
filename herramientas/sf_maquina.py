@@ -58,33 +58,46 @@ def correr(tareas, paralelo, medir):
 
 
 medir = plan.get('modo') == 'medir'
+import threading
+k0, k1 = tr.get('k0', 0), tr.get('k1', 0); SALV = f'{SAL}/trozo_{ID}.mp4'
+estado = {'fin_tareas': False, 'error': None, 'n_dentro': 0}
+
+
+def armar():
+    """Va comprimiendo el pedazo de video EN ORDEN mientras los procesos renderizan (mismo codificador que tomas/tramo.py)."""
+    try:
+        import imageio_ffmpeg
+        ff = imageio_ffmpeg.get_ffmpeg_exe()
+        p = subprocess.Popen([ff, '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{A}x{H}', '-r', str(FPS), '-i', '-',
+                              '-c:v', 'libx264', '-crf', '18', '-pix_fmt', 'yuv420p', SALV], stdin=subprocess.PIPE)
+        for k in range(k0, k1):
+            d = interior(k)
+            ruta = f'{RAIZ}/dentro/cuadros_{d[0]}_1080/{d[1]:05d}.jpg' if d else f'{CRUDO}/{k:05d}.npy'
+            while not os.path.exists(ruta):
+                if estado['fin_tareas'] and not os.path.exists(ruta): raise RuntimeError(f'FALTA {ruta} (cuadro {k})')
+                time.sleep(0.2)
+            if d:                                       # igual que Rodaje2.cuadro con un cuadro por dentro
+                im = np.asarray(Image.open(ruta).convert('RGB').resize((A, H))); estado['n_dentro'] += 1
+            else:
+                im = np.load(ruta); os.remove(ruta)
+            p.stdin.write(np.ascontiguousarray(im).tobytes())
+        p.stdin.close(); p.wait()
+        if p.returncode != 0 or os.path.getsize(SALV) < 1000: raise RuntimeError('ffmpeg falló')
+    except Exception as e:
+        estado['error'] = repr(e)
+
+
+hilo = None
+if not medir: hilo = threading.Thread(target=armar, daemon=True); hilo.start()
 fallos = correr(tr['tareas'], tr.get('paralelo', 1), medir)
+estado['fin_tareas'] = True
 for m in glob.glob(f'{CRUDO}/medida_*.json'): os.replace(m, f'{SAL}/{os.path.basename(m)}')
 if fallos: sys.exit(f'FALLARON tareas {fallos}')
 T_RENDER = time.time() - INI
 if medir:
     open(f'{SAL}/tiempo_{ID}.txt', 'w').write(f'{T_RENDER:.1f} {os.environ.get("T_PREPARAR", "0")}\n'); sys.exit(0)
-
-# ------------------------------------------------------------------ armar el pedazo de video, en orden
-import imageio_ffmpeg
-ff = imageio_ffmpeg.get_ffmpeg_exe()
-k0, k1 = tr['k0'], tr['k1']; sal = f'{SAL}/trozo_{ID}.mp4'
-p = subprocess.Popen([ff, '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{A}x{H}', '-r', str(FPS), '-i', '-',
-                      '-c:v', 'libx264', '-crf', '18', '-pix_fmt', 'yuv420p', sal], stdin=subprocess.PIPE)
-n_dentro = 0
-for k in range(k0, k1):
-    d = interior(k)
-    if d is not None:                                   # igual que Rodaje2.cuadro con un cuadro por dentro
-        ruta = f'{RAIZ}/dentro/cuadros_{d[0]}_1080/{d[1]:05d}.jpg'
-        if not os.path.exists(ruta): sys.exit(f'FALTA el cuadro por dentro {ruta} (cuadro {k})')
-        im = np.asarray(Image.open(ruta).convert('RGB').resize((A, H))); n_dentro += 1
-    else:
-        ruta = f'{CRUDO}/{k:05d}.npy'
-        if not os.path.exists(ruta): sys.exit(f'FALTA el cuadro {k}')
-        im = np.load(ruta); os.remove(ruta)
-    p.stdin.write(np.ascontiguousarray(im).tobytes())
-p.stdin.close(); p.wait()
-assert p.returncode == 0 and os.path.getsize(sal) > 1000, 'ffmpeg falló'
+hilo.join()
+if estado['error']: sys.exit(estado['error'])
 T_TOTAL = time.time() - INI
-open(f'{SAL}/tiempo_{ID}.txt', 'w').write(f'{T_TOTAL:.1f} {os.environ.get("T_PREPARAR", "0")} {T_RENDER:.1f} {k1 - k0} {n_dentro}\n')
-print(f'LISTO trozo {ID}: cuadros {k0}–{k1 - 1} ({k1 - k0}, {n_dentro} por dentro) en {T_TOTAL:.0f} s', flush=True)
+open(f'{SAL}/tiempo_{ID}.txt', 'w').write(f'{T_TOTAL:.1f} {os.environ.get("T_PREPARAR", "0")} {T_RENDER:.1f} {k1 - k0} {estado["n_dentro"]}\n')
+print(f'LISTO trozo {ID}: cuadros {k0}–{k1 - 1} ({k1 - k0}, {estado["n_dentro"]} por dentro) en {T_TOTAL:.0f} s', flush=True)
