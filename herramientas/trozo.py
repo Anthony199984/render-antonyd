@@ -11,5 +11,10 @@ for r in tz['corridas']:
                    cwd=os.path.dirname(job.get('script', '/home/claude/fisica/max_comp.py')))
     fs = sorted(glob.glob(f'{tmp}/*.png'), key=lambda p: int(os.path.basename(p)[:-4]))
     for i, f in enumerate(fs): shutil.move(f, f"{sal}/{r['inicio'] + i:05d}.png")
-print(f'trozo {tid}: {sum(len(r["tiempos"]) for r in tz["corridas"])} cuadros en {time.time() - t0:.0f} s')
-open(f'{sal}/tiempo_{tid}.txt', 'w').write(f'{time.time() - t0:.1f}\n')
+t_render = time.time() - t0
+# etiqueta, repite el último cuadro de cada tramo si hace falta y arma el pedacito de video de esta máquina
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import video_trozo
+n = video_trozo.armar(job, tz, sal, f'{sal}/trozo_{tid}.mp4')
+print(f'trozo {tid}: {n} cuadros, render {t_render:.0f} s, pedacito {time.time() - t0 - t_render:.0f} s')
+open(f'{sal}/tiempo_{tid}.txt', 'w').write(f'{t_render:.1f} {os.environ.get("T_PREPARAR", "0")}\n')
+for f in glob.glob(f'{sal}/*.png'): os.remove(f)          # solo viaja el pedacito de video

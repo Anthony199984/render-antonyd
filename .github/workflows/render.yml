@@ -36,15 +36,24 @@ jobs:
       matrix:
         id: ${{ fromJSON(needs.plan.outputs.trozos) }}
     steps:
+      - run: echo "T0=$(date +%s)" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12", cache: pip, cache-dependency-path: herramientas/requisitos.txt }
+      - name: Programas del sistema (guardados en memoria)
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with: { packages: libegl1 libegl-mesa0 libgl1-mesa-dri libgles2 ffmpeg, version: "1" }
+      - name: Planes de Max ya calculados (de renders anteriores)
+        uses: actions/cache@v4
+        with:
+          path: hc/max_ropa/motor/soma/planes_guardados
+          key: planes-${{ github.run_id }}-${{ matrix.id }}
+          restore-keys: planes-
       - name: Preparar maquina
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq libegl1 libegl-mesa0 libgl1-mesa-dri libgles2 ffmpeg > /dev/null
           pip install -q -r herramientas/requisitos.txt
           sudo ln -sfn "$GITHUB_WORKSPACE/hc" /home/claude
-          nproc; free -g | head -2
+          T=$(( $(date +%s) - T0 )); echo "T_PREPARAR=$T" >> "$GITHUB_ENV"; echo "preparada en $T s"
       - name: Renderizar trozo ${{ matrix.id }}
         env:
           MUJOCO_GL: egl
@@ -66,8 +75,7 @@ jobs:
         with: { path: salida, pattern: "trozo-*" }
       - name: Unir el video
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
-          pip install -q pillow
+          which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null)
           python3 herramientas/unir.py trabajos/ACTUAL.json salida resultado
       - name: Guardar en la rama resultados
         run: |

@@ -1,0 +1,2 @@
+file '/tmp/sal/00/trozo_00.mp4'
+file '/tmp/sal/01/trozo_01.mp4'
