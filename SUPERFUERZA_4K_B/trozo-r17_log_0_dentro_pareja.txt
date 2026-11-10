@@ -1,0 +1,4 @@
+dentro pareja 130 8.54s
+dentro pareja 131 8.28s
+dentro pareja 132 8.14s
+OK dentro:pareja 3 33.5s

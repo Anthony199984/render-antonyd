@@ -1,0 +1,5 @@
+dentro tendon 0 8.32s
+dentro tendon 1 8.40s
+dentro tendon 2 8.20s
+dentro tendon 3 8.38s
+OK dentro:tendon 4 37.7s
