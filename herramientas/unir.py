@@ -1,4 +1,5 @@
 """Pega los pedacitos de video de cada máquina, sin recodificar: python3 unir.py trabajos/ACTUAL.json <carpeta_trozos> <carpeta_resultado>"""
+import imageio_ffmpeg
 import json, os, sys, glob, subprocess
 job = json.load(open(sys.argv[1])); ent = sys.argv[2]; res = sys.argv[3]; os.makedirs(res, exist_ok=True)
 ids = [t['id'] for t in job['trozos']]
@@ -8,7 +9,7 @@ with open('lista.txt', 'w') as f:
     for i in ids:
         if mp4[i]: f.write(f"file '{os.path.abspath(mp4[i])}'\n")
 nombre = job['nombre']
-subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'lista.txt', '-c', 'copy',
+subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'lista.txt', '-c', 'copy',
                 '-movflags', '+faststart', f'{res}/{nombre}.mp4'], check=True)
 ts = []
 for p in glob.glob(f'{ent}/**/tiempo_*.txt', recursive=True):

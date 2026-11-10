@@ -3,3 +3,4 @@ scipy
 pillow
 opencv-python-headless
 mujoco==4.0.0
+imageio-ffmpeg

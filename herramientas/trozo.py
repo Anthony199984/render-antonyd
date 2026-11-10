@@ -15,6 +15,7 @@ t_render = time.time() - t0
 # etiqueta, repite el último cuadro de cada tramo si hace falta y arma el pedacito de video de esta máquina
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import video_trozo
 n = video_trozo.armar(job, tz, sal, f'{sal}/trozo_{tid}.mp4')
+if not os.path.getsize(f'{sal}/trozo_{tid}.mp4'): sys.exit('no se armó el pedacito de video')
 print(f'trozo {tid}: {n} cuadros, render {t_render:.0f} s, pedacito {time.time() - t0 - t_render:.0f} s')
 open(f'{sal}/tiempo_{tid}.txt', 'w').write(f'{t_render:.1f} {os.environ.get("T_PREPARAR", "0")}\n')
 for f in glob.glob(f'{sal}/*.png'): os.remove(f)          # solo viaja el pedacito de video

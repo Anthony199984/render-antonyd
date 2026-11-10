@@ -1,4 +1,5 @@
 """Pedacito de video de una máquina: etiqueta los cuadros y codifica con los MISMOS ajustes en todas (se pegan sin recodificar)."""
+import imageio_ffmpeg
 import os, glob, subprocess, shutil
 from PIL import Image, ImageDraw, ImageFont
 
@@ -17,7 +18,7 @@ def armar(job, tz, sal, salida_mp4):
         for _ in range(reps): im.save(f'{tmp}/{k:05d}.png'); k += 1
     if k == 0: return 0
     fps_in, fps_out = job.get('fps', 15), job.get('video_fps', 30)
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(fps_in), '-i', f'{tmp}/%05d.png',
+    subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), '-y', '-loglevel', 'error', '-framerate', str(fps_in), '-i', f'{tmp}/%05d.png',
                     '-vf', f'fps={fps_out},scale=trunc(iw/2)*2:trunc(ih/2)*2', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20',
                     '-pix_fmt', 'yuv420p', '-r', str(fps_out), salida_mp4], check=True)
     shutil.rmtree(tmp); return k
