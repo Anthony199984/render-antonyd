@@ -1,0 +1,2 @@
+cuadros 210, faltan 0 []
+trozos 20; el más lento tardó 147 s; suma de todas las máquinas 1646 s
