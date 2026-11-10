@@ -1,2 +1,3 @@
-cuadros 210, faltan 0 []
-trozos 20; el más lento tardó 147 s; suma de todas las máquinas 1646 s
+trozos 20, faltan []
+render: el más lento 126 s, el más rápido 17 s, suma 1417 s
+preparar máquina: el más lento 34 s
