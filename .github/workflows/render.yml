@@ -80,9 +80,13 @@ jobs:
       - name: Guardar en la rama resultados
         run: |
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin resultados || true
-          git checkout -B resultados origin/resultados 2>/dev/null || git checkout --orphan resultados
-          git rm -rqf --cached . > /dev/null 2>&1 || true
+          mv resultado /tmp/resultado
+          if git fetch -q --depth=1 origin +refs/heads/resultados:refs/remotes/origin/resultados; then
+            git checkout -q -f -B resultados origin/resultados
+          else
+            git checkout -q --orphan resultados; git rm -rqf --cached . > /dev/null 2>&1 || true
+          fi
+          mv /tmp/resultado resultado
           mkdir -p "${{ needs.plan.outputs.nombre }}"; cp resultado/* "${{ needs.plan.outputs.nombre }}/"
           git add "${{ needs.plan.outputs.nombre }}"; git commit -qm "Resultado ${{ needs.plan.outputs.nombre }} [skip ci]"
           git push -q origin resultados
