@@ -13,6 +13,9 @@ tr = next(t for t in plan['trozos'] if t['id'] == ID)
 FPS = plan.get('fps', 60); A = plan.get('ancho', 1080); H = A * 16 // 9
 os.makedirs(SAL, exist_ok=True)
 sys.path.insert(0, '/home/claude/teletransporte'); os.chdir('/home/claude/teletransporte')
+import glob, shutil                                   # arreglos de código hechos después de subir el proyecto
+for f in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tp_codigo', '*.py')):
+    shutil.copy(f, '/home/claude/teletransporte/'); print('código nuevo:', os.path.basename(f), flush=True)
 INI = time.time()
 from tp_base import escena
 mod = importlib.import_module(f"t{tr['toma']:02d}")
