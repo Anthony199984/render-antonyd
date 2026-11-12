@@ -27,6 +27,9 @@ def luces_en(t):
     return out
 
 
+CELULAR = (.062, .020, -.010, 0.0, (-25, -15, 0, 0))          # adelante, sobre la palma, hacia el meñique, cierre de dedos, pulgar
+
+
 class Toma:
     INI, FIN = 52.05, 61.3          # de 61,3 a 62,3 la cara sigue debajo de la cortina diagonal (lo dibuja la T9)
 
@@ -37,6 +40,9 @@ class Toma:
         s.pista = caras([(-9, 54.0, 'decidido'), (54.0, 59.0, 'neutral'), (59.0, 99, 'desaprobacion')])
         if 'escaner_anillo' not in E.r.meshes:
             import t03; t03._anillo(E.r, 'escaner_anillo')
+        # agarre del celular MEDIDO con la malla (herramientas/medir_celular.py): ningún dedo adentro, la piel tocándolo
+        s.cel_adel, s.cel_hondo, s.cel_lado, s.cel_curva, s.cel_pulgar = CELULAR
+        s.cel_R = np.eye(3); s._apoyar_celular()
 
     def _max(s, t):
         E = s.E
@@ -52,7 +58,7 @@ class Toma:
         if t > 60.85: E.max.cara_manual = {'eyeBlinkLeft': .35, 'eyeBlinkRight': .35}          # párpados caídos, resignado
         return max_objs(E, 'tp_parado_celular_1', 1.2 + (t - T_CARA) * .5, PISO, LM.CAB_YAW, pista=s.pista, t_escena=t, suelo=PISO[2], ik=s._ik(t))
 
-    def _ik(s, t):
+    def _ik(s, t, curva=None):
         """La mano izquierda rodea el celular; en el primer plano final la pantalla mira a su cara."""
         def fn(m, G, Pm, b):
             if t >= T_CARA:
@@ -61,13 +67,66 @@ class Toma:
                 W = pc + Fw * .30 - Rt * .10 - U * .13
                 F = IK.marco_xz(U * .85 + Fw * .35 + Rt * .1, (Pb - W))               # el largo del celular hacia arriba, la palma a la cara
                 IK.brazo(m, G, Pm, b, 'Left', W, F, polo=-U * .8 - Rt * .5, w=1.0)
-            IK.dedos(m, G, Pm, b, 'Left', {'Index': (22, 30, 20), 'Middle': (26, 34, 22), 'Ring': (28, 36, 24), 'Pinky': (32, 38, 26)}, pulgar=(22, 6, 12, 14))
+            a = s.cel_curva if curva is None else curva                          # cerrados lo justo: rodean el borde del celular sin atravesarlo
+            IK.dedos(m, G, Pm, b, 'Left', {d: (a, a * 1.15, a * .8) for d in ('Index', 'Middle', 'Ring', 'Pinky')}, pulgar=s.cel_pulgar)
         return fn
+
+    def _apoyar_celular(s):
+        """El celular se apoya SOBRE la palma: se mide la superficie de la mano (malla real, dedos estirados) debajo de
+        donde va, se inclina como ella y queda 1 mm por encima del punto más alto. Después se cierran los dedos lo justo."""
+        E = s.E; t = T_CARA + .1
+        o, M, J = max_objs(E, 'tp_parado_celular_1', 1.2 + (t - T_CARA) * .5, PISO, LM.CAB_YAW, suelo=PISO[2], ik=s._ik(t, 0))
+        W = mano_mat(E, M, 'Left')
+        Pw = np.concatenate([q for k, (q, _) in enumerate(E.max._ult_pose[2]) if E.max.prims[k]['mname'].startswith('Std_Skin_Arm')]) @ M[:3, :3].T + M[:3, 3]
+        H = (Pw - W[:3, 3]) @ W[:3, :3]; H = H[np.linalg.norm(H, axis=1) < .13]          # solo la piel de la mano
+        a0, l0 = s.cel_adel, s.cel_lado; hx, hy = .073 / 2, .150 / 2
+        zona = (np.abs(H[:, 0] - a0) < hx + .004) & (np.abs(H[:, 1] - l0) < hy + .004)
+        Hz = H[zona]; celdas = {}
+        for v in Hz:
+            k = (int((v[0] - a0) // .01), int((v[1] - l0) // .01)); celdas[k] = max(celdas.get(k, -9), v[2])
+        A_ = np.array([[1, (k[0] + .5) * .01, (k[1] + .5) * .01] for k in celdas]); z_ = np.array(list(celdas.values()))
+        c0, cx, cy = np.linalg.lstsq(A_, z_, rcond=None)[0]                         # plano de la palma: z = c0 + cx*x + cy*y
+        n = np.array([-cx, -cy, 1.0]); n /= np.linalg.norm(n)
+        x = np.array([1.0, 0, 0]) - n * n[0]; x /= np.linalg.norm(x); y = np.cross(n, x)
+        Rl = np.stack([y, -x, n], 1)                                                 # caja: largo (.150) a lo ancho de la mano, ancho (.073) hacia los dedos
+        base = np.array([a0, l0, c0])
+        alto = float(((Hz - base) @ n).max())                                        # lo más alto de la mano bajo el celular
+        s.cel_R = Rl; s.cel_c = base + n * (alto + .0045 + .001)
+        for a in range(0, 91, 5):                                                    # dedos: lo más cerrados sin meterse
+            if max(s._penetra(tt, a)[0] for tt in (T_CARA + .1, s.FIN - .15)) > .0008: break
+            s.cel_curva = a
+        s.cel_pen, s.cel_cont = s._penetra(T_CARA + .1, s.cel_curva)
+
+    def _penetra(s, t, curva, adel=None, hondo=None):
+        """Cuánto se meten los dedos (malla real de Max) dentro del celular, y a qué distancia queda la piel más cercana."""
+        E = s.E
+        o, M, J = max_objs(E, 'tp_parado_celular_1', 1.2 + (t - T_CARA) * .5, PISO, LM.CAB_YAW, suelo=PISO[2], ik=s._ik(t, curva))
+        cel, p, W = s._celular(M); Mc = cel[0]['model'].astype(float)
+        Pl = np.concatenate([q for q, _ in E.max._ult_pose[2]]); Pw = Pl @ M[:3, :3].T + M[:3, 3]
+        Pw = Pw[np.linalg.norm(Pw - p, axis=1) < .14]
+        L = (Pw - Mc[:3, 3]) @ np.linalg.inv(Mc[:3, :3]).T                                # en unidades de la caja (-.5..5)
+        h = np.array([.150, .073, .009]) / 2; Ld = np.abs(L) * np.array([.150, .073, .009])
+        dentro = np.all(Ld < h, axis=1); fuera = np.linalg.norm(np.maximum(Ld - h, 0), axis=1)
+        pen = float((h - Ld)[dentro].min(axis=1).max()) if dentro.any() else 0.0
+        return pen, float(fuera.min())
+
+    def _medir_celular(s):
+        """Busca dónde va el celular en la palma y cuánto cerrar los dedos: ningún dedo adentro (< 1 mm) y la piel tocándolo."""
+        mejor = None
+        for adel in (.050, .060, .070):
+            for hondo in (.011, .015):
+                for a in range(0, 76, 5):
+                    pen = max(s._penetra(t, a, adel, hondo)[0] for t in (T_CARA + .1, s.FIN - .2))
+                    if pen < .001:
+                        cont = s._penetra(T_CARA + .1, a, adel, hondo)[1]
+                        nota = a - 400 * cont                                              # lo más cerrado posible, pegado al celular
+                        if mejor is None or nota > mejor[0]: mejor = (nota, adel, hondo, a, pen, cont)
+        _, s.cel_adel, s.cel_hondo, s.cel_curva, s.cel_pen, s.cel_cont = mejor
 
     def _celular(s, M):
         """Celular por código (sin marcas): cuerpo negro con la pantalla encendida, acostado en la palma izquierda."""
-        W = mano_mat(s.E, M, 'Left'); pl = IK.palma_local('Left', .095, .013)
-        p = W[:3, 3] + W[:3, :3] @ pl; R = W[:3, :3]
+        W = mano_mat(s.E, M, 'Left'); p = W[:3, 3] + W[:3, :3] @ s.cel_c
+        R = W[:3, :3] @ s.cel_R                                                     # apoyado en la palma (medido), el largo cruza la mano
         Mc = np.eye(4, dtype=np.float32); Mc[:3, :3] = R @ np.diag([.150, .073, .009]); Mc[:3, 3] = p
         Ms = np.eye(4, dtype=np.float32); Ms[:3, :3] = R @ np.diag([.138, .064, .002]); Ms[:3, 3] = p + R @ np.array([0, 0, .0052])
         return [dict(mesh='box', model=Mc, texture='white', color=(.04, .04, .05), roughness=.25),

@@ -41,6 +41,18 @@ def cama(n, t0, t1, gan_db=-24, ini=0.0):
     poner(a[:need], t0, gan_db, .25, .25)
 
 
+def golpe_madera(sem=3):
+    """Golpe seco de tapa de madera (sintetizado): un 'tum' grave, un 'toc' de madera y un poco de ruido del choque."""
+    g = np.random.default_rng(sem); n = int(.9 * SR); tt = np.arange(n) / SR
+    tum = np.sin(2 * np.pi * (62 + 30 * np.exp(-tt * 30)) * tt) * np.exp(-tt * 7.5)
+    toc = (np.sin(2 * np.pi * 410 * tt) * .6 + np.sin(2 * np.pi * 690 * tt) * .35) * np.exp(-tt * 38)
+    ruido = g.standard_normal(n) * np.exp(-tt * 55) * .5
+    ruido = np.convolve(ruido, np.ones(6) / 6, 'same')
+    a = tum * 1.0 + toc * .7 + ruido
+    a = a / np.abs(a).max() * .8
+    return np.stack([a, a * .96], 1).astype(np.float32)
+
+
 def efecto(n, t, gan_db=-12, ini=0.0, dur=None, normal=True):
     a = leer(son(n), ini, dur)
     if normal: a = a / (np.abs(a).max() + 1e-9) * .7
@@ -49,8 +61,8 @@ def efecto(n, t, gan_db=-12, ini=0.0, dur=None, normal=True):
 
 # ------------------------------------------------------------------ ambientes por lugar
 cama('tp_amb_cocina', 0.0, 1.55, -26)
-cama('tp_amb_tokio', 1.55, 4.7, -22)
-cama('tp_amb_cocina', 5.75, 17.5, -26)
+cama('tp_amb_tokio', 1.55, 3.95, -22)
+cama('tp_amb_cocina', 4.76, 17.5, -26)
 cama('tp2_viento', 17.5, 19.0, -24)
 cama('tp_amb_tokio', 21.0, 36.3, -24)
 cama('tp_amb_dubai', 36.3, 43.7, -23)
@@ -65,9 +77,9 @@ cama('tp_amb_cocina', 83.35, 88.45, -26)
 # ------------------------------------------------------------------ efectos
 efecto('tp_whoosh', 1.40, -10, dur=.5)                 # se va (estilo Goku)
 efecto('tp_whoosh', 1.62, -12, dur=.5)                 # llega a Tokio
-efecto('tp_bolsa', 3.95, -10, dur=.8)                  # cae al piso
-efecto('tp_rebobinado', 4.70, -12, ini=2.0, dur=1.05)  # se rebobina hasta la cocina
-efecto('tp_whoosh', 5.72, -14, dur=.5)
+efecto('tp_whoosh', 3.36, -9, dur=.45)                 # las dos mitades de la caja llegan volando
+poner(golpe_madera(), 3.72, -4, 0, .05)                # se cierra la caja de golpe
+efecto('tp_oidos', 3.92, -24, ini=1.0, dur=.75)         # adentro: silencio que zumba
 efecto('tp_enviado', 8.85, -14)                        # el dedo toca la pantalla
 efecto('tp_enviado', 9.35, -18)                        # se ilumina Japón
 efecto('tp_escaner', 12.35, -16, dur=1.0)

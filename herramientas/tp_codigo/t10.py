@@ -10,10 +10,27 @@ import recursos_vel as RV
 T_DOS = 70.85                 # plano claro de la cama: ella y EL OTRO MAX juntos ("en la cama, con el otro tú")
 T_CARA, T_SUELTA, T_DESPIERTA = 71.95, 72.20, 72.50
 COLCHON = C.altura_colchon(25.0)
-ESPOSA10 = np.array([26.02, 6.72, COLCHON - .03]); ESPOSA10_GIRO = -90.0   # recostada en la cabecera (X = 26,5)
+ESPOSA10 = np.array([25.66, 6.72, COLCHON - .03]); ESPOSA10_GIRO = -90.0   # recostada en la cabecera (X = 26,5)
 COPIA = np.array([25.25, 5.62, 0.0]); COPIA_YAW = -90.0           # acostado: la cabeza hacia la cabecera (+X)
 LLEGA = np.array([22.15, 7.55, C.Z0]); LLEGA_YAW = 72.0
 LAMPARAS = [np.array([26.45, 7.55, 1.05]), np.array([26.45, 4.85, 1.05])]
+
+
+def _malla_almohada(r):
+    """Almohada redondeada (superelipsoide) de 1 x 1 x 1: se escala con la matriz. Bordes blandos, centro abultado."""
+    if 'almohada_tp' in r.meshes: return
+    import lovely_vida as V
+    Mx = V.Malla(); nu, nv = 28, 16
+    def pt(u, v):
+        cu, su, cv, sv = math.cos(u), math.sin(u), math.cos(v), math.sin(v)
+        f = lambda c, e: math.copysign(abs(c) ** e, c)
+        return np.array([.5 * f(cv, .9) * f(cu, .35) * .9 + 0, .5 * f(cv, .35) * f(su, .35), .5 * f(sv, .35)])
+    for i in range(nu):
+        for j in range(nv):
+            u0, u1 = 2 * math.pi * i / nu, 2 * math.pi * (i + 1) / nu; v0, v1 = -math.pi / 2 + math.pi * j / nv, -math.pi / 2 + math.pi * (j + 1) / nv
+            a, b, c, d = pt(u0, v0), pt(u1, v0), pt(u1, v1), pt(u0, v1)
+            Mx.quad(a, b, c, d, (1, 1, 1))
+    Mx.subir(r, 'almohada_tp')
 
 
 class Toma:
@@ -28,6 +45,7 @@ class Toma:
         s.p_copia = caras([(-9, T_DESPIERTA + .1, 'neutral'), (T_DESPIERTA + .1, 99, 'confundido')], semilla=5)
         s.pos_llega = colocar(E, 'tp_bolsa_soltar_2', 2.2, LLEGA, LLEGA_YAW)
         s.dz_copia = None
+        _malla_almohada(E.r)
         o, M, J = s._llega(T_SUELTA)                                  # dónde queda la bolsa al soltarla (sin estado entre trozos)
         W = mano_mat(E, M, 'Right'); s.bolsa = (W[:3, 3] + np.array([0, 0, -.30]), T_SUELTA)
 
@@ -86,11 +104,42 @@ class Toma:
         for tam, col, off in (((.26, .19, .018), (.55, .10, .08), (0, .02, -.012)), ((.25, .18, .012), (.95, .93, .86), (0, .02, .0))):
             Mb = np.eye(4, dtype=np.float32); Mb[:3, :3] = R @ np.diag(tam); Mb[:3, 3] = c + R @ np.array(off)
             o.append(dict(mesh='box', model=Mb, texture='white', color=col, roughness=.7))
-        esp = A.hueso('Bip01 Spine1')                                                   # almohada entre la espalda y la cabecera
-        ca, sa = math.cos(-.5), math.sin(-.5); Rp = np.array([[ca, 0, sa], [0, 1, 0], [-sa, 0, ca]])
-        Mp = np.eye(4, dtype=np.float32); Mp[:3, :3] = Rp @ np.diag([.13, .56, .36]); Mp[:3, 3] = (esp[0] + .17, esp[1], esp[2] - .06)
-        o.append(dict(mesh='box', model=Mp, texture='white', color=(.93, .93, .95), roughness=.9))
+        o.append(dict(mesh='almohada_tp', model=s._almohada(tc), texture='white', color=(.94, .94, .96), roughness=.85))
         return o
+
+    def _almohada(s, tc_ahora):
+        """Almohada blanda entre la espalda y la cabecera, MEDIDA con la malla de ella en toda la toma: su cara de adelante
+        queda 1 cm detrás de la espalda (nunca la atraviesa) y la de atrás contra la cabecera."""
+        if getattr(s, 'Mp', None) is not None: return s.Mp
+        A = s.esposa; Vs = []
+        for t in np.linspace(s.INI, s.FIN, 9):
+            tc = (t - s.INI) * 1.0 + .5
+            if t > T_DESPIERTA: tc = 2.4 + (t - T_DESPIERTA) * 1.4
+            A.objetos(s.c_lee, min(tc, s.c_lee.dur - .05), tuple(ESPOSA10), ESPOSA10_GIRO, M_extra=s.M_esp); Vs.append(A.ult_V)
+        V = np.concatenate(Vs)
+        esp = A.hueso('Bip01 Spine1')
+        ca, sa = math.cos(-.55), math.sin(-.55); Rp = np.array([[ca, 0, sa], [0, 1, 0], [-sa, 0, ca]])     # inclinada contra la cabecera
+        T_, AN, AL = .15, .62, .40                                                     # grosor, ancho, alto
+        cen = np.array([esp[0], esp[1], esp[2] - .04])
+        L = (V - cen) @ Rp                                                             # en ejes de la almohada (x = grosor, hacia la cabecera)
+        dentro = (np.abs(L[:, 1]) < AN / 2 + .02) & (np.abs(L[:, 2]) < AL / 2 + .02)
+        x0 = float(L[dentro, 0].max()) + T_ / 2 + .01 if dentro.any() else .17
+        c = cen + Rp @ np.array([x0, 0, 0])
+        Mp = np.eye(4, dtype=np.float32); Mp[:3, :3] = Rp @ np.diag([T_, AN, AL])
+        from scipy.spatial import cKDTree                                              # medido con la forma real (redondeada)
+        f = lambda q, e: np.sign(q) * np.abs(q) ** e
+        uu, vv = np.meshgrid(np.linspace(0, 2 * np.pi, 240), np.linspace(-np.pi / 2, np.pi / 2, 120))
+        Pu = np.stack([.45 * f(np.cos(vv), .9) * f(np.cos(uu), .35), .5 * f(np.cos(vv), .35) * f(np.sin(uu), .35), .5 * f(np.sin(vv), .35)], -1).reshape(-1, 3)
+        Vc = V[np.linalg.norm(V - c, axis=1) < .6]
+        for _ in range(40):
+            Pw = Pu @ Mp[:3, :3].T + c; dist, i = cKDTree(Pw).query(Vc)
+            mete = (np.linalg.norm(Vc - c, axis=1) < np.linalg.norm(Pw[i] - c, axis=1))
+            s.almohada_mete = float(dist[mete].max()) if mete.any() else 0.0
+            if s.almohada_mete < .004: break
+            c = c + Rp[:, 0] * .006                                                     # hacia la cabecera, de a 6 mm
+        Mp[:3, 3] = c
+        s.Mp = Mp; s.almohada_hueco = float(x0 - T_ / 2 - L[dentro, 0].max()) if dentro.any() else None
+        return Mp
 
     def cuadro(s, E, t):
         o2, M2, J2 = s._copia(t)

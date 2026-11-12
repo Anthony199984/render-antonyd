@@ -57,7 +57,7 @@ class Toma:
         return max_objs(E, PULGAR, tc, K.PISO, K.YAW, pista=s.pista, t_escena=t, suelo=K.PISO[2])
 
     def _esposa(s, t):
-        return s.esposa.objetos(t, K.ESPOSA, K.ESPOSA_GIRO, saluda=(10.15, 11.75))
+        return s.esposa.objetos(t, K.ESPOSA, K.ESPOSA_GIRO, saluda=(10.15, 11.75), mirar=K.PISO + (0, 0, 1.62))      # lo mira a él mientras se despide
 
     # ---------------------------------------------------------------- cámara
     def camara(s, t, J):

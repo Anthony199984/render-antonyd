@@ -37,6 +37,7 @@ T_R = time.time()
 for k in range(k0, k1):
     t = min(max(TI.viejo(k / FPS), T.INI), T.FIN - 1e-4)
     if hasattr(T, 'avanzar'): T.avanzar(t)
+    E.t_escena = t                                     # la cámara en mano (tp_base._vida) usa el tiempo de la escena
     a = time.time(); img = T.cuadro(E, t)
     if img.shape[:2] != (H, A): raise RuntimeError(f'cuadro {k} mide {img.shape}')
     p.stdin.write(np.ascontiguousarray(img[..., :3]).tobytes())
