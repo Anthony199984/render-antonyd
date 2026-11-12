@@ -1,0 +1,55 @@
+# TP_VISTA_PREVIA_4
+Plan: 43 máquinas · modo render
+
+**Video sin sonido:** 2571 cuadros (deben ser 2571) · 540x960 (debe ser 540x960) · 30 FPS · 34.4 MB
+VERIFICADO: SÍ
+
+Render por máquina: el más lento 302 s · el más rápido 18 s · suma 90.2 min de máquina
+Preparar máquina: el más lento 48 s
+
+- máquina t01_00: cuadros 0–69 · render 108 s · preparar 41 s · por dentro 0
+- máquina t01_01: cuadros 70–139 · render 140 s · preparar 35 s · por dentro 0
+- máquina t01_02: cuadros 140–188 · render 140 s · preparar 38 s · por dentro 0
+- máquina t02_03: cuadros 189–258 · render 162 s · preparar 42 s · por dentro 0
+- máquina t02_04: cuadros 259–328 · render 172 s · preparar 40 s · por dentro 0
+- máquina t02_05: cuadros 329–366 · render 121 s · preparar 38 s · por dentro 0
+- máquina t03_06: cuadros 367–436 · render 128 s · preparar 40 s · por dentro 0
+- máquina t03_07: cuadros 437–506 · render 148 s · preparar 40 s · por dentro 0
+- máquina t03_08: cuadros 507–517 · render 45 s · preparar 33 s · por dentro 0
+- máquina t04_09: cuadros 518–587 · render 80 s · preparar 36 s · por dentro 0
+- máquina t04_10: cuadros 588–657 · render 82 s · preparar 42 s · por dentro 0
+- máquina t04_11: cuadros 658–727 · render 170 s · preparar 41 s · por dentro 0
+- máquina t04_12: cuadros 728–797 · render 167 s · preparar 43 s · por dentro 0
+- máquina t04_13: cuadros 798–824 · render 112 s · preparar 41 s · por dentro 0
+- máquina t05_14: cuadros 825–894 · render 141 s · preparar 44 s · por dentro 0
+- máquina t05_15: cuadros 895–964 · render 117 s · preparar 42 s · por dentro 0
+- máquina t05_16: cuadros 965–1034 · render 88 s · preparar 29 s · por dentro 0
+- máquina t05_17: cuadros 1035–1065 · render 51 s · preparar 29 s · por dentro 0
+- máquina t06_18: cuadros 1066–1135 · render 169 s · preparar 44 s · por dentro 0
+- máquina t06_19: cuadros 1136–1205 · render 142 s · preparar 32 s · por dentro 0
+- máquina t06_20: cuadros 1206–1274 · render 120 s · preparar 32 s · por dentro 0
+- máquina t07_21: cuadros 1275–1344 · render 165 s · preparar 43 s · por dentro 0
+- máquina t07_22: cuadros 1345–1414 · render 92 s · preparar 41 s · por dentro 0
+- máquina t07_23: cuadros 1415–1484 · render 155 s · preparar 37 s · por dentro 0
+- máquina t07_24: cuadros 1485–1515 · render 109 s · preparar 41 s · por dentro 0
+- máquina t08_25: cuadros 1516–1585 · render 100 s · preparar 38 s · por dentro 0
+- máquina t08_26: cuadros 1586–1655 · render 92 s · preparar 42 s · por dentro 0
+- máquina t08_27: cuadros 1656–1725 · render 88 s · preparar 48 s · por dentro 0
+- máquina t08_28: cuadros 1726–1768 · render 56 s · preparar 42 s · por dentro 0
+- máquina t09_29: cuadros 1769–1838 · render 293 s · preparar 42 s · por dentro 0
+- máquina t09_30: cuadros 1839–1908 · render 302 s · preparar 42 s · por dentro 0
+- máquina t09_31: cuadros 1909–1978 · render 254 s · preparar 42 s · por dentro 0
+- máquina t09_32: cuadros 1979–2005 · render 130 s · preparar 39 s · por dentro 0
+- máquina t10_33: cuadros 2006–2075 · render 161 s · preparar 46 s · por dentro 0
+- máquina t10_34: cuadros 2076–2110 · render 130 s · preparar 45 s · por dentro 0
+- máquina t11_35: cuadros 2111–2180 · render 74 s · preparar 38 s · por dentro 0
+- máquina t11_36: cuadros 2181–2250 · render 59 s · preparar 46 s · por dentro 0
+- máquina t11_37: cuadros 2251–2320 · render 146 s · preparar 47 s · por dentro 0
+- máquina t11_38: cuadros 2321–2390 · render 106 s · preparar 47 s · por dentro 0
+- máquina t11_39: cuadros 2391–2399 · render 18 s · preparar 35 s · por dentro 0
+- máquina t12_40: cuadros 2400–2469 · render 97 s · preparar 44 s · por dentro 0
+- máquina t12_41: cuadros 2470–2539 · render 144 s · preparar 44 s · por dentro 0
+- máquina t12_42: cuadros 2540–2570 · render 39 s · preparar 30 s · por dentro 0
+- teletransporte_final_540x960_30fps.mp4: 2571 cuadros · 36.6 MB
+Sonido puesto en 4 s (fuera de la competencia)
+unir: 30 s
