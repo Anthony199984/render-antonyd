@@ -128,7 +128,7 @@ class Toma:
         objs = fijos + (o if ver else [])
         if T_LLEGA <= t < T_LLEGA + .35: objs += s._destello(P_TK, 1 - (t - T_LLEGA) / .35)
         F = np.array([math.sin(math.radians(YAW_TK)), -math.cos(math.radians(YAW_TK)), 0]); Sd = np.array([-F[1], F[0], 0])
-        hp = J['Hips']; Lz = TK.luz((0, 0, 0)); extra = []
+        hp = J['Hips']; Lz = TK.luz((0, 0, 0)); extra = []; tapa = 1.0
         if t < T_CAJA:
             u = suave((t - T_LLEGA) / (T_CAJA - T_LLEGA))                # se acerca despacio y le da la vuelta un poco mientras mira feliz
             cam = (tuple(P_TK + F * (3.0 - .55 * u) + Sd * (.55 - .65 * u) + np.array([0, 0, 1.45 - .12 * u])), tuple(P_TK + (0, 0, 1.15 + .12 * u)), 46)
@@ -139,12 +139,8 @@ class Toma:
             golpe = max(0.0, 1 - (t - T_CIERRA) / .30) if t >= T_CIERRA else 0.0
             tapa = 1.0 if t < T_TAPA0 else max(0.0, 1 - (t - T_TAPA0) / (T_TAPA1 - T_TAPA0))
             caja = AT.objetos(u, c, YAW_TK, sacudon=golpe * math.sin((t - T_CIERRA) * 70))
-            if tapa < 1:                                                 # la cámara "atraviesa" la tapa: la mitad de adelante se desvanece
-                for d in caja:
-                    if 'frente' in d['mesh']:
-                        col = tuple(d['color'][:3]); d['color'] = col + (tapa ** 1.5,); d['transparent'] = True
-                caja = [d for d in caja if not ('frente' in d['mesh'] and tapa <= .02)]
-            objs = objs + caja
+            sin_tapa = objs + [d for d in caja if 'frente' not in d['mesh']]   # la cámara "atraviesa" la tapa: fundido entre con y sin ella
+            objs = objs + caja if tapa > 0 else sin_tapa
             h = J['Head']; cara = h + (0, 0, .075)                             # los ojos (se tienen que ver cerrarse)
             ancho = c + F * (3.75 - .40 * suave(min(1.0, u))) + Sd * float(os.environ.get('LADO1', 1.2)) + (0, 0, 1.30)     # todo el ataúd en cuadro; empuja mientras se cierra
             if t < T_CIERRA:
@@ -168,6 +164,9 @@ class Toma:
             Lz['env_k'] = .6 - .45 * w; Lz['lights'] = [dict(l, col=tuple(np.array(l['col']) * (1 - .75 * w))) for l in Lz['lights']] + extra
         k = .75 * rampa(t, 3.50, .10, .32, .14)                         # la caja se resalta mientras llega y se cierra (sin aclarar: ya es clara)
         img = render_resaltado(E, objs, cam, Lz, lambda d: str(d.get('mesh', '')).startswith('ataud_'), k, DORADO, crema=0.0)
+        if t >= T_CAJA and 0 < tapa < 1:
+            b = E.render(sin_tapa, cam, Lz); a_ = suave(tapa)
+            img = (img.astype(np.float32) * a_ + b.astype(np.float32) * (1 - a_)).astype(np.uint8)
         E.cielo, E.zsuelo, E.calido, E.grado = guard
         return img
 

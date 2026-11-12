@@ -81,7 +81,7 @@ class Toma:
         if en_mano:
             W = mano_mat(E, M, 'Left'); pal = IK.palma_local('Left', .085, .014)
             Rl = np.stack([[0, 1.0, 0], [-1.0, 0, 0], [0, 0, 1.0]], 1)              # modelo X (largo) -> y mano; Z (abertura) -> fuera de la palma
-            o += objeto_en(E.r, 'tp_taco', W, pal, Rl, largo=TACO)
+            o += [dict(d, resalta=True) for d in objeto_en(E.r, 'tp_taco', W, pal, Rl, largo=TACO)]
         return o
 
     def cuadro(s, E, t):
@@ -115,4 +115,5 @@ class Toma:
         else:
             u = (t - T_VUELVE) / (s.FIN - T_VUELVE)
             cam = claves(u, [(0, (17.6, -3.4, 1.55), (16.2, .8, 1.1), 52), (1, (16.6, -3.6, 1.6), (13.2, 1.6, 1.2), 52)])
-        return E.render(objs, cam, MX.luz(cam[1], cam[0]))
+        k = rampa(t, T_PLATO + .05, .10, .60, .20)                       # el taco en la mano, resaltado
+        return render_resaltado(E, objs, cam, MX.luz(cam[1], cam[0]), lambda d: d.get('resalta', False), k)

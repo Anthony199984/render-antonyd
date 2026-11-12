@@ -175,4 +175,5 @@ class Toma:
                   bg_top=(.01, .015, .04), bg_hor=(.02, .03, .07), bg_bot=(.01, .01, .02))
         Lz['cielo'] = False
         Lz['lights'] = [dict(pos=tuple(p + (0, 0, .05)), col=(3.4, 2.5, 1.5)) for p in LAMPARAS] + [dict(pos=(24.5, 6.1, 2.45), col=(2.6, 2.3, 1.9)), dict(pos=(23.4, 6.6, 2.5), col=(1.2, 1.1, 1.0)), dict(pos=(21.3, 7.2, 2.4), col=(.9, .85, .8))]
-        return E.render(objs, cam, Lz)
+        k = rampa(t, T_DOS + .15, .12, .65, .25)                         # "con el otro tú": el otro Max resaltado
+        return render_resaltado(E, objs, cam, Lz, lambda d: str(d.get('mesh', '')).startswith('max2_'), k)

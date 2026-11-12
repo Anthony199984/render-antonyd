@@ -93,7 +93,7 @@ class Toma:
             return RV.modelo(E.r, 'tp_kebab_wrap', tuple(MOSTRADOR + (0, -.05, 0)), 0.0, largo=LARGO)
         W = mano_mat(E, M, 'Left'); pal = IK.palma_local('Left')
         c = pal + np.array([0, .05, 0])                                        # centro del shawarma: en la palma, un poco hacia el índice
-        return objeto_en(E.r, 'tp_kebab_wrap', W, c - Rl @ np.array([0, 0, ZC]), Rl, largo=LARGO)
+        return [dict(d, resalta=True) for d in objeto_en(E.r, 'tp_kebab_wrap', W, c - Rl @ np.array([0, 0, ZC]), Rl, largo=LARGO)]
 
     def _vendedor(s, t):
         if t < T_TERMO: return []
@@ -132,7 +132,8 @@ class Toma:
         else:
             u = (t - T_CORRE) / (s.FIN - T_CORRE)
             cam = claves(u, [(0, (16.2, -3.6, 1.6), (14.6, 1.2, 1.1), 52), (1, (15.0, -3.9, 1.7), (12.6, 1.6, 1.2), 52)])
-        img = E.render(objs, cam, DB.luz(cam[1], cam[0]))
+        k = rampa(t, T_BOCA0 + .25, .10, .55, .20)                       # el shawarma resaltado cuando llega a la boca
+        img = render_resaltado(E, objs, cam, DB.luz(cam[1], cam[0]), lambda d: d.get('resalta', False), k)
         if gan > 1:
             a = img.astype(np.float32) / 255; a = 1 - (1 - a) ** gan
             img = (a * 255).astype(np.uint8)

@@ -90,4 +90,5 @@ class Toma:
         if t >= 9.9: objs += s._esposa(t)
         cam = s.camara(t, J)
         E.posts = []
-        return E.render(objs, cam, C.luz(cam[1], cam[0]))
+        k = rampa(t, 9.25, .08, .50, .20)                               # Japón se ilumina en la pantalla: resaltado
+        return render_resaltado(E, objs, cam, C.luz(cam[1], cam[0]), lambda d: d.get('texture') == 'cab_pant_t2', k)

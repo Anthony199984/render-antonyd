@@ -56,7 +56,7 @@ class Toma:
         o, M, J = s._max(t)
         u_c = 0.0 if t < T_CORTINA + .05 else min(1.0, ((t - T_CORTINA - .05) / (T_GOLPE - T_CORTINA - .05)) ** 2)
         hora = '00:00' if t >= T_GOLPE else '23:59'
-        objs = s.fijos + o + TK.cortina(E, CORT, u=u_c, pintada=True) + TK.reloj(E, hora, RELOJ_POS, RELOJ_GIRO)
+        objs = s.fijos + o + TK.cortina(E, CORT, u=u_c, pintada=True) + [dict(d, resalta=True) for d in TK.reloj(E, hora, RELOJ_POS, RELOJ_GIRO)]
         E.posts = []
         if t < T_CARA5:
             u = (t - s.INI) / (T_CARA5 - s.INI); h = J['Hips']
@@ -83,4 +83,5 @@ class Toma:
             cam = (tuple(ojo), tuple(hs + (0, 0, .38)), 44)
             foco, k = h, .8
         E.grado = dict(sat=1.15, con=1.10, foco=tuple(foco), cm=cam, k_dof=k)
-        return E.render(objs, cam, TK.luz(cam[1], cam[0]))
+        k = rampa(t, T_RELOJ + .02, .08, .38, .12)                      # el 00:00 resaltado
+        return render_resaltado(E, objs, cam, TK.luz(cam[1], cam[0]), lambda d: d.get('resalta', False), k)
