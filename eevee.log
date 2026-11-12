@@ -1,0 +1,14 @@
+/home/runner/work/render-antonyd/render-antonyd/escena.py:8: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new(nombre); m.use_nodes = True
+/home/runner/work/render-antonyd/render-antonyd/escena.py:17: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  w = bpy.data.worlds.new('mundo'); w.use_nodes = True; w.node_tree.nodes['Background'].inputs['Color'].default_value = (.05, .06, .08, 1); esc.world = w
+MOTOR BLENDER_EEVEE versión 5.3.0
+00:00.338  gpu.vulkan       | WARNING Unable to initialize a Vulkan 1.1 instance.
+EGL Error (0x3009): EGL_BAD_MATCH: Arguments are inconsistent (for example, a valid context requires buffers not supplied by a valid surface).
+EGL Error (0x3009): EGL_BAD_MATCH: Arguments are inconsistent (for example, a valid context requires buffers not supplied by a valid surface).
+EGL Error (0x3009): EGL_BAD_MATCH: Arguments are inconsistent (for example, a valid context requires buffers not supplied by a valid surface).
+01:31.479  render           | Saved: '/home/runner/work/render-antonyd/render-antonyd/eevee.png'
+TIEMPO_CUADRO 91.1
+Blender 5.3.0 (hash 02f0899d78e3 built 2026-11-10 01:31:18)
+
+Blender quit

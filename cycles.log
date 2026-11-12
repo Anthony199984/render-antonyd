@@ -1,0 +1,11 @@
+/home/runner/work/render-antonyd/render-antonyd/escena.py:8: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new(nombre); m.use_nodes = True
+/home/runner/work/render-antonyd/render-antonyd/escena.py:17: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  w = bpy.data.worlds.new('mundo'); w.use_nodes = True; w.node_tree.nodes['Background'].inputs['Color'].default_value = (.05, .06, .08, 1); esc.world = w
+00:01.302  cycles           | WARNING CUEW initialization failed: Error opening the library
+MOTOR CYCLES versión 5.3.0
+01:58.409  render           | Saved: '/home/runner/work/render-antonyd/render-antonyd/cycles.png'
+TIEMPO_CUADRO 117.1
+Blender 5.3.0 (hash 02f0899d78e3 built 2026-11-10 01:31:18)
+
+Blender quit
