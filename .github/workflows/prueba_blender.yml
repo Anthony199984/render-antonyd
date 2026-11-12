@@ -1,0 +1,40 @@
+name: Prueba Blender
+on: { workflow_dispatch: {} }              # solo a mano: no toca los renders del video
+permissions: { contents: write }
+jobs:
+  blender:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bajar Blender (la más reciente para Linux)
+        run: |
+          T0=$(date +%s)
+          sudo apt-get -qq update && sudo apt-get -qq install -y libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libegl1 libgl1-mesa-dri libxkbcommon0 libsm6 xvfb > /dev/null
+          V=$(curl -s https://download.blender.org/release/ | grep -oE 'Blender[0-9]+\.[0-9]+' | sort -t r -k2 -V | uniq | tail -1)
+          F=$(curl -s https://download.blender.org/release/$V/ | grep -oE 'blender-[0-9.]+-linux-x64\.tar\.xz' | sort -V | uniq | tail -1)
+          echo "Bajando $V/$F"; curl -sSL -o b.tar.xz https://download.blender.org/release/$V/$F
+          mkdir blender && tar -xf b.tar.xz -C blender --strip-components=1
+          echo "BAJAR=$(( $(date +%s) - T0 ))" >> $GITHUB_ENV; echo "VERSION=$F" >> $GITHUB_ENV
+      - name: Cycles con el procesador (128 muestras + limpieza de ruido)
+        run: |
+          T0=$(date +%s); ./blender/blender -b --factory-startup -P escena.py -- CYCLES $PWD/cycles.png 2>&1 | tee cycles.log | grep -E "MOTOR|TIEMPO|Error" || true
+          echo "CYCLES_TOTAL=$(( $(date +%s) - T0 ))" >> $GITHUB_ENV
+      - name: Eevee (sin tarjeta gráfica)
+        run: |
+          T0=$(date +%s); ./blender/blender -b --factory-startup -P escena.py -- EEVEE $PWD/eevee.png > eevee.log 2>&1 || true
+          MODO="sin pantalla"
+          if [ ! -f eevee.png ]; then MODO="con pantalla virtual (xvfb + Mesa)"; LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s "-screen 0 1920x1080x24" ./blender/blender -b --factory-startup -P escena.py -- EEVEE $PWD/eevee.png > eevee2.log 2>&1 || true; fi
+          echo "EEVEE_TOTAL=$(( $(date +%s) - T0 ))" >> $GITHUB_ENV; echo "EEVEE_MODO=$MODO" >> $GITHUB_ENV
+          grep -hE "MOTOR|TIEMPO|rror" eevee*.log | head -20
+      - name: Informe y guardar en la rama resultados
+        if: always()
+        run: |
+          mkdir -p r; cp *.png *.log r/ 2>/dev/null || true
+          { echo "# Prueba de Blender en GitHub"; echo "- Versión: $VERSION"; echo "- Bajar e instalar: $BAJAR s"
+            echo "- Cycles CPU, 1 cuadro 1080x1920: $(grep -h TIEMPO_CUADRO cycles.log | awk '{print $2}') s (paso completo $CYCLES_TOTAL s)"
+            echo "- Eevee ($EEVEE_MODO): $(grep -h TIEMPO_CUADRO eevee*.log | awk '{print $2}') s (paso completo $EEVEE_TOTAL s) · imagen: $([ -f eevee.png ] && echo sí || echo NO)"
+            echo "- Procesador: $(nproc) núcleos · $(grep MemTotal /proc/meminfo)"; } > r/INFORME.md
+          cat r/INFORME.md
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q --orphan resultados-blender; git rm -rqf --cached . ; cp r/* . ; git add *.png *.log INFORME.md; git commit -qm "Resultado de la prueba [skip ci]"; git push -qf origin resultados-blender
