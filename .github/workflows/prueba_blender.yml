@@ -1,5 +1,5 @@
 name: Prueba Blender
-on: { workflow_dispatch: {} }              # solo a mano: no toca los renders del video
+on: { push: { branches: [prueba-blender] }, workflow_dispatch: {} }   # se lanza al subir a esta rama (no toca main ni el video)
 permissions: { contents: write }
 jobs:
   blender:
