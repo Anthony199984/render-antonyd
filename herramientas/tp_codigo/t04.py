@@ -6,9 +6,11 @@
 24,6  plano medio afuera de la cabina: estira los brazos ("sales seguro de que fue un simple viaje")
 26,3  infla el pecho y huele el aire, satisfecho ("por un sushi")."""
 import math, numpy as np
+import os
 from tp_base import *
 import tokio as TK, cabina as CB, arena as AR, globo as GL
 import lovely_vida as V
+LAT = float(os.environ.get('LAT', 1))
 
 T_GLOBO, T_TOKIO, T_CARA, T_SALE, T_PECHO = 19.0, 21.0, 23.0, 24.6, 26.3
 TECHO = np.array([14.05, 7.25, 6.6])
@@ -56,7 +58,7 @@ class Toma:
         u = (t - s.INI) / (T_GLOBO - s.INI)
         alto = 60 * suave(min(u * 1.6, 1.0)); b = min(1.0, u * 4)
         objs = s.fijos + (haz(TECHO, alto, .22, b) if alto > .05 else [])
-        cam = claves(u, [(0, (14.6, -6.5, 1.5), (14.2, 6.0, 6.0), 58), (1, (14.9, -6.0, 1.3), (14.1, 6.5, 12.0), 62)])
+        cam = claves(u, [(0, (15.6, -4.6, 4.2), (14.2, 6.0, 6.6), 58), (1, (15.9, -4.2, 4.0), (14.1, 6.5, 12.0), 62)])       # más alto: sin el bulto negro de abajo
         E.posts = []
         return E.render(objs, cam, L.luz(cam[1]))
 
@@ -66,7 +68,8 @@ class Toma:
         v = lambda k: (math.sin((1 - k) * w) * p + math.sin(k * w) * q) / math.sin(w)
         c = v(min(a * 1.05, 1.0)); c = c / np.linalg.norm(c)
         nrm = np.cross(p, q); nrm /= np.linalg.norm(nrm)
-        ojo = c * (2.6 - .4 * a) + nrm * (.95 - .3 * a); mira = c * .45
+        lejos = .45 * math.sin(math.pi * a)                              # a mitad de viaje se aleja: se ven los dos lados del mundo
+        ojo = c * (2.6 - .4 * a + lejos) + nrm * (.95 - .3 * a); mira = c * .45
         Lz = B.luces((0, 0, 0)); Lz['cielo'] = False
         Lz.update(bg_top=(.0, .01, .03), bg_hor=(.01, .03, .08), bg_bot=(0, 0, .01), env_k=.05, sun_col=(.08, .1, .15), lights=[])
         E.posts = []
@@ -99,21 +102,21 @@ class Toma:
         if t < T_TOKIO + .9:                                            # el chorro llega del cielo a la cabina
             b = 1 - max(0.0, (t - T_TOKIO - .4) / .5)
             if b > .03: objs += haz(PISO + (0, 0, .05), 40, .20 * suave(b) + .004, b)   # se afina hasta desaparecer (antes se apagaba de golpe)
-        E.posts = [s.A.post] if t < T_SALE else []
+        E.posts = [s.A.post] if t < 24.25 else []                       # los últimos granos no se quedan flotando sobre la cara
         if t < T_CARA:
             u = (t - T_TOKIO) / (T_CARA - T_TOKIO)
-            cam = claves(u, [(0, PISO + F * 1.6 + S * .3 + (0, 0, .25), PISO + (0, 0, .35), 50), (1, PISO + F * 1.5 + S * .45 + (0, 0, .55), PISO + (0, 0, .85), 50)])
+            cam = claves(u, [(0, PISO + F * 1.55 + S * .85 * LAT + (0, 0, .30), PISO + (0, 0, .35), 50), (1, PISO + F * 1.5 + S * .85 * LAT + (0, 0, .60), PISO + (0, 0, .85), 50)])   # de lado: la calle de Tokio al fondo
         elif t < T_SALE:
             u = (t - T_CARA) / (T_SALE - T_CARA)
             h = PISO + (0, 0, 1.72)
-            cam = claves(u, [(0, PISO + F * 1.5 + S * .4 + (0, 0, 1.05), PISO + (0, 0, 1.25), 46), (.7, h + F * .85 + S * .2 + (0, 0, -.05), h - (0, 0, .03), 38),
-                             (1, h + F * .75 + S * .18, h - (0, 0, .03), 36)])
+            cam = claves(u, [(0, PISO + F * 1.5 + S * .85 * LAT + (0, 0, 1.05), PISO + (0, 0, 1.25), 46), (.7, h + F * .85 + S * .45 * LAT + (0, 0, -.05), h - (0, 0, .03), 38),
+                             (1, h + F * .75 + S * .40 * LAT, h - (0, 0, .03), 36)])
         elif t < T_PECHO:
             u = (t - T_SALE) / (T_PECHO - T_SALE); hp = J['Hips']
-            cam = (tuple(hp + F * 2.7 - S * .9 + (0, 0, .45 + .1 * u)), tuple(hp + (0, 0, .55)), 50)
+            cam = (tuple(hp + F * 1.9 + S * 2.3 * LAT + (0, 0, .35 + .1 * u)), tuple(hp + (0, 0, .50)), 50)
         else:
             u = (t - T_PECHO) / (s.FIN - T_PECHO); h = J['Head']
-            cam = (tuple(h + F * 1.3 + S * .55 + (0, 0, -.20 - .05 * u)), tuple(h + (0, 0, -.22)), 40 - 4 * u)
+            cam = (tuple(h + F * 1.15 + S * .85 * LAT + (0, 0, -.20 - .05 * u)), tuple(h + (0, 0, -.22)), 40 - 4 * u)
         E.grado = dict(sat=1.15, con=1.10, foco=tuple(np.array(cam[1])), cm=cam, k_dof=1.4)      # fondo desenfocado
         return E.render(objs, cam, TK.luz(cam[1], cam[0]))
 

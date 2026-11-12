@@ -45,9 +45,10 @@ class Toma:
     def _max_casa(s, t):
         E = s.E
         if t < T_VA + .2:                                          # dedos a la frente
-            E.max.cara_manual = {'eyeBlinkLeft': 1.0, 'eyeBlinkRight': 1.0, 'browDownLeft': .6, 'browDownRight': .6} if t > .62 else {}
-            w = suave((t - .12) / .50)                                  # índice y medio a la frente (IK), y ahí se queda
-            return max_objs(E, s.goku, (.35 + t * .95) if t < .7 else (1.015 + (t - .7) * .2), s.p_goku, K.CAM_YAW, pista=s.pista, t_escena=t,
+            E.max.cara_manual = {'eyeBlinkLeft': 1.0, 'eyeBlinkRight': 1.0, 'browDownLeft': .6, 'browDownRight': .6} if t > .50 else {}
+            w = suave((t + .02) / .42)                                  # índice y medio a la frente (IK), y ahí se queda
+            tg = t + .12                                                # el video arranca con la mano ya subiendo (gancho desde el cuadro 0)
+            return max_objs(E, s.goku, (.35 + tg * .95) if tg < .7 else (1.015 + (tg - .7) * .2), s.p_goku, K.CAM_YAW, pista=s.pista, t_escena=t,
                             suelo=C.Z0, ik=IK.goku(w))
         E.max.cara_manual = {}
         return K.caminar(E, K.T_CAMINA0, s.pista)                 # vuelve ya en el primer paso de la caminata (la T2 sigue sin salto)
