@@ -42,7 +42,7 @@ class Toma:
             K = [(s.INI, (np.array([0.0, 1.2, 1.40]), np.array([-.5, 6.0, 1.35]))), (74.45, parada('casa', 2.15)), (75.75, parada('casa', 1.85)),
                  (77.05, parada('tokio', 2.3)), (T_AFUERA, parada('tokio', 1.85))]
         else:                                                           # de vuelta: Dubái y México, con su montoncito
-            K = [(T_VUELTA, parada('dubai', 2.2)), (81.9, parada('dubai', 1.9)), (82.75, parada('mexico', 2.2)), (s.FIN, parada('mexico', 1.9))]
+            K = [(T_VUELTA, parada('dubai', 2.2)), (81.5, parada('dubai', 1.95)), (82.75, parada('mexico', 2.2)), (s.FIN, parada('mexico', 1.9))]     # el paso de Dubái a México más largo: sin barrido brusco
         k = max(0, min(len(K) - 2, sum(1 for q in K if q[0] <= t) - 1))
         (ta, (oa, ma)), (tb, (ob, mb)) = K[k], K[k + 1]; v = suave((t - ta) / (tb - ta))
         ojo = mezcla(oa, ob, v) + (0, 0, .03 * math.sin(t * 1.3)); mira = mezcla(ma, mb, v); foco = mira

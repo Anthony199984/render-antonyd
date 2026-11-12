@@ -1,11 +1,19 @@
 {
- "nombre": "TP_VISTA_PREVIA_7",
+ "nombre": "TP_VISTA_PREVIA_7B",
  "modo": "render",
  "fps": 30,
  "ancho": 540,
  "res": "540x960",
  "k_total": 2571,
  "trozos": [
+  {
+   "id": "t11_38",
+   "toma": 11,
+   "k0": 2321,
+   "k1": 2391
+  }
+ ],
+ "previos": [
   {
    "id": "t01_00",
    "toma": 1,
@@ -235,12 +243,6 @@
    "k1": 2321
   },
   {
-   "id": "t11_38",
-   "toma": 11,
-   "k0": 2321,
-   "k1": 2391
-  },
-  {
    "id": "t11_39",
    "toma": 11,
    "k0": 2391,
@@ -264,5 +266,6 @@
    "k0": 2540,
    "k1": 2571
   }
- ]
+ ],
+ "sha_previo": "3c2189b69c160150bce5d9262f2c79e4f2dfe2f4"
 }
