@@ -21,7 +21,7 @@ def luces_en(t):
     for k in range(5):
         ta = T_APAGA + .30 * k                                   # fallan de a uno, con un parpadeo largo: se ve venir el apagón
         if t < ta - .30: v = 1.0
-        elif t < ta: v = .2 if int(t * 22 + k) % 2 else 1.0
+        elif t < ta: v = .5 if int(t * 11 + k) % 2 else 1.0              # parpadeo suave (a 22 por segundo era un flash molesto)
         else: v = 0.0
         out.append(v)
     return out
