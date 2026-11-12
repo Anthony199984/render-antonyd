@@ -43,6 +43,8 @@ class Toma:
         s.t8 = t08.Toma(); s.t8.E = E; s.t8.W, s.t8.H = E.r.w, E.r.h
         s.t8.pos_press, s.t8.yaw_press = CB.pose_presionar(LM.CABINA, LM.CAB_YAW)
         s.t8.pista = caras([(-9, 99, 'desaprobacion')])
+        s.t8.cel_adel, s.t8.cel_hondo, s.t8.cel_lado, s.t8.cel_curva, s.t8.cel_pulgar = t08.CELULAR
+        s.t8.cel_R = np.eye(3); s.t8._apoyar_celular()                  # el mismo agarre medido que en la T8
         s.p_copia = caras([(-9, 63.6, 'neutral'), (63.6, 99, 'contento')])
         s.p_mx = caras([(-9, 65.3, 'impaciente'), (65.3, T_DING, 'cansado'), (T_DING, 99, 'susto')], semilla=11)
         s.p_camina = colocar(E, 'g15_caminar', 1.0, K.PISO + K.F * .9, 0.0)
