@@ -1,0 +1,109 @@
+name: Max nuevo en 20 maquinas
+
+on:
+  push:
+    branches: [main]
+    paths: ["trabajos/MN.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: max-nuevo
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      trozos: ${{ steps.p.outputs.trozos }}
+      nombre: ${{ steps.p.outputs.nombre }}
+      modo: ${{ steps.p.outputs.modo }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: trabajos }
+      - id: p
+        run: |
+          python3 -c "import json;d=json.load(open('trabajos/MN.json'));print('trozos='+json.dumps([t['id'] for t in d['trozos']]));print('nombre='+d['nombre']);print('modo='+d.get('modo','render'))" >> "$GITHUB_OUTPUT"
+
+  trozo:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        id: ${{ fromJSON(needs.plan.outputs.trozos) }}
+    steps:
+      - run: echo "T0=$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: "herramientas\ntrabajos" }
+      - uses: actions/checkout@v4
+        with: { ref: proyecto-mn, path: zipmn }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13", cache: pip, cache-dependency-path: herramientas/req_mn.txt }
+      - name: Programas del sistema (guardados en memoria)
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with: { packages: libegl1 libegl-mesa0 libgl1-mesa-dri libgles2 libgl1 libglx-mesa0, version: "mn1" }
+      - name: Preparar maquina (librerias + proyecto DESCIFRADO en /home/claude)
+        env:
+          CLAVE: ${{ secrets.CLAVE_PROYECTO }}
+        run: |
+          pip install -q -r herramientas/req_mn.txt &
+          cat zipmn/mn.enc.* > /tmp/mn.enc && rm -rf zipmn/mn.enc.*
+          python3 -c "import json;print(json.load(open('trabajos/MN.json'))['sha']+'  /tmp/mn.enc')" | sha256sum -c
+          test -n "$CLAVE" || { echo "FALTA el secreto CLAVE_PROYECTO en el repo"; exit 1; }
+          printf '%s' "$CLAVE" > /tmp/clave && openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in /tmp/mn.enc -out /tmp/mn.zip -pass file:/tmp/clave
+          rm -f /tmp/clave /tmp/mn.enc
+          sudo mkdir -p /home/claude && sudo chown "$(id -u):$(id -g)" /home/claude
+          unzip -q -n /tmp/mn.zip -d /home/claude && rm -f /tmp/mn.zip
+          wait
+          echo "preparada en $(( $(date +%s) - T0 )) s"; nproc; free -g
+      - name: Renderizar ${{ matrix.id }}
+        env:
+          EGL_PLATFORM: surfaceless
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          GALLIUM_DRIVER: llvmpipe
+          PYTHONUNBUFFERED: "1"
+        run: python3 herramientas/mn_maquina.py trabajos/MN.json ${{ matrix.id }} salida/${{ matrix.id }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "trozo-${{ matrix.id }}", path: "salida/${{ matrix.id }}", retention-days: 3, compression-level: 0 }
+
+  unir:
+    needs: [plan, trozo]
+    if: always() && needs.plan.result == 'success'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: "herramientas\ntrabajos" }
+      - uses: actions/download-artifact@v4
+        with: { path: salida, pattern: "trozo-*" }
+      - name: Unir el video (o juntar la medición)
+        run: |
+          pip install -q imageio-ffmpeg numpy
+          mkdir -p resultado
+          if [ "${{ needs.plan.outputs.modo }}" = "medir" ]; then
+            python3 -c "import json,glob;m=sorted(x for f in glob.glob('salida/*/medida_*.json') for x in json.load(open(f)));json.dump(m,open('resultado/medicion_mn.json','w'));print(m)"
+          else
+            python3 herramientas/mn_unir.py trabajos/MN.json salida resultado || true
+          fi
+      - name: Guardar en la rama resultados (solo el video y el informe, nunca el proyecto)
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p resultado; for f in salida/*/log_*.txt; do [ -f "$f" ] && cp "$f" resultado/; done
+          cd resultado; for f in *.mp4; do [ -f "$f" ] || continue; sha256sum "$f" >> SHA256_videos_enteros.txt; s=$(stat -c%s "$f"); if [ $s -gt 95000000 ]; then split -b 95000000 -d "$f" "$f.parte" && rm "$f"; fi; done; sha256sum * > SHA256.txt; cd ..
+          mv resultado /tmp/resultado
+          git sparse-checkout disable
+          if git fetch -q --depth=1 origin +refs/heads/resultados:refs/remotes/origin/resultados; then
+            git checkout -q -f -B resultados origin/resultados
+          else
+            git checkout -q --orphan resultados; git rm -rqf --cached . > /dev/null 2>&1 || true
+          fi
+          N="${{ needs.plan.outputs.nombre }}"; rm -rf "$N"; mkdir -p "$N"; cp /tmp/resultado/* "$N/"
+          git add "$N"; git commit -qm "Resultado $N [skip ci]"
+          git push -q origin resultados

@@ -1,0 +1,6 @@
+numpy==2.5.3
+scipy==1.18.1
+pillow==12.3.0
+opencv-python==5.0.0.93
+defusedxml==0.7.1
+imageio-ffmpeg
