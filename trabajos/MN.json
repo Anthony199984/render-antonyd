@@ -1,0 +1,27 @@
+{
+ "nombre": "MN_ENSAYO_1",
+ "video": "max_nuevo/render_github_lovely.py",
+ "ancho": 1080,
+ "alto": 1920,
+ "fps": 30.0,
+ "sha": "a1ce36d0a089ea27a8c1f925e9d8961f5e2e3953a92dd9dd7fdb3b4ec4d1c7f7",
+ "crf": 18,
+ "modo": "render",
+ "trozos": [
+  {
+   "id": "t00",
+   "k0": 100,
+   "k1": 109
+  },
+  {
+   "id": "t01",
+   "k0": 109,
+   "k1": 119
+  },
+  {
+   "id": "t02",
+   "k0": 119,
+   "k1": 130
+  }
+ ]
+}
