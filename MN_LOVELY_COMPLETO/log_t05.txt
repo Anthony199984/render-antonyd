@@ -1,0 +1,4 @@
+[   21.8s] escena lista: 221 cuadros a 30.0003 fps
+[   24.0s] cuadro 55 (1/11) 2.2 s
+[   38.9s] cuadro 65 (11/11) 1.5 s
+[   39.4s] LISTO t05: cuadros 55-65 en 39 s

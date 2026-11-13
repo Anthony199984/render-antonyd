@@ -1,0 +1,4 @@
+[   24.8s] escena lista: 221 cuadros a 30.0003 fps
+[   27.0s] cuadro 99 (1/11) 2.1 s
+[   41.4s] cuadro 109 (11/11) 1.4 s
+[   42.0s] LISTO t09: cuadros 99-109 en 42 s

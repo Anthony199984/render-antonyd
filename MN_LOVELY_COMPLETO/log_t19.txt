@@ -1,0 +1,5 @@
+[   22.3s] escena lista: 221 cuadros a 30.0003 fps
+[   25.2s] cuadro 209 (1/12) 2.9 s
+[   43.6s] cuadro 219 (11/12) 1.8 s
+[   45.5s] cuadro 220 (12/12) 1.8 s
+[   46.2s] LISTO t19: cuadros 209-220 en 46 s

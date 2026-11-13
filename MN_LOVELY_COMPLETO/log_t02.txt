@@ -1,0 +1,4 @@
+[   14.2s] escena lista: 221 cuadros a 30.0003 fps
+[   15.8s] cuadro 22 (1/11) 1.6 s
+[   27.9s] cuadro 32 (11/11) 1.2 s
+[   28.3s] LISTO t02: cuadros 22-32 en 28 s

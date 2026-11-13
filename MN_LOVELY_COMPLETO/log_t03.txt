@@ -1,0 +1,4 @@
+[   23.7s] escena lista: 221 cuadros a 30.0003 fps
+[   26.0s] cuadro 33 (1/11) 2.3 s
+[   41.1s] cuadro 43 (11/11) 1.5 s
+[   41.5s] LISTO t03: cuadros 33-43 en 41 s

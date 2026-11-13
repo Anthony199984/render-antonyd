@@ -1,0 +1,4 @@
+[   22.3s] escena lista: 221 cuadros a 30.0003 fps
+[   25.1s] cuadro 44 (1/11) 2.8 s
+[   44.1s] cuadro 54 (11/11) 1.9 s
+[   44.8s] LISTO t04: cuadros 44-54 en 45 s
