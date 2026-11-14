@@ -1,10 +1,10 @@
 {
- "nombre": "huevo_previa",
+ "nombre": "huevo_previa2",
  "video": "huevo/render_huevo.py",
  "ancho": 540,
  "alto": 960,
  "fps": 30,
- "sha": "8bd941addfd242d49f5270fe3ac518a182cee1ef5cb9e678f58f11a02937ad8a",
+ "sha": "4777d1ec3a2a1cd77369a0beabdcfe2a9c26efb53d46d0e6bd173d872beefe87",
  "crf": 18,
  "modo": "render",
  "trozos": [
