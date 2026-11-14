@@ -1,0 +1,5 @@
+[   58.5s] escena lista: 4543 cuadros a 30 fps
+[   93.9s] cuadro 1850 (1/14) 35.4 s
+[  116.1s] cuadro 1860 (11/14) 2.3 s
+[  122.7s] cuadro 1863 (14/14) 2.2 s
+[  122.9s] LISTO t00: cuadros 1850-1863 en 123 s
