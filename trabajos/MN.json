@@ -1,10 +1,10 @@
 {
- "nombre": "vaca_infla_borrador3c",
+ "nombre": "vaca_infla_borrador4",
  "video": "videos/vaca_infla/render_github_infla.py",
  "ancho": 540,
  "alto": 960,
  "fps": 60,
- "sha": "e5e099dae764ec072db3dce3af0641622d590327e486054bd89a56a1e1a71f7e",
+ "sha": "a723b13af4a3a3a08b7ce84c8a57a8349127481e7442fb0ec258591edc5132a4",
  "crf": 18,
  "modo": "render",
  "trozos": [
