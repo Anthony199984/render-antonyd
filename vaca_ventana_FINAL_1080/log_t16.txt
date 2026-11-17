@@ -1,0 +1,13 @@
+[    0.8s] escena lista: 2692 cuadros a 60 fps
+[   31.3s] cuadro 2244 (1/96) 30.5 s
+[   49.7s] cuadro 2254 (11/96) 1.8 s
+[   67.1s] cuadro 2264 (21/96) 1.7 s
+[   84.0s] cuadro 2274 (31/96) 1.7 s
+[  100.7s] cuadro 2284 (41/96) 1.7 s
+[  123.2s] cuadro 2294 (51/96) 4.6 s
+[  168.6s] cuadro 2304 (61/96) 4.5 s
+[  213.4s] cuadro 2314 (71/96) 4.5 s
+[  258.1s] cuadro 2324 (81/96) 4.5 s
+[  277.5s] cuadro 2334 (91/96) 1.7 s
+[  285.7s] cuadro 2339 (96/96) 1.6 s
+[  287.7s] LISTO t16: cuadros 2244-2339 en 288 s

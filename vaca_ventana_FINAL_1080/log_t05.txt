@@ -1,0 +1,15 @@
+[    0.7s] escena lista: 2692 cuadros a 60 fps
+[   32.3s] cuadro 737 (1/119) 31.6 s
+[   41.3s] cuadro 747 (11/119) 0.9 s
+[   50.0s] cuadro 757 (21/119) 0.9 s
+[   58.8s] cuadro 767 (31/119) 0.9 s
+[   67.6s] cuadro 777 (41/119) 0.9 s
+[   76.5s] cuadro 787 (51/119) 0.9 s
+[   85.5s] cuadro 797 (61/119) 0.9 s
+[   94.5s] cuadro 807 (71/119) 0.9 s
+[  103.5s] cuadro 817 (81/119) 0.9 s
+[  112.4s] cuadro 827 (91/119) 0.9 s
+[  121.5s] cuadro 837 (101/119) 0.9 s
+[  130.5s] cuadro 847 (111/119) 0.9 s
+[  137.7s] cuadro 855 (119/119) 0.9 s
+[  139.9s] LISTO t05: cuadros 737-855 en 140 s
