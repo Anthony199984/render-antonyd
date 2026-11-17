@@ -1,0 +1,15 @@
+[    0.0s] escena lista: 3078 cuadros a 60 fps
+[   39.5s] cuadro 623 (1/121) 39.4 s
+[   51.9s] cuadro 633 (11/121) 1.2 s
+[   63.6s] cuadro 643 (21/121) 1.2 s
+[   75.2s] cuadro 653 (31/121) 1.1 s
+[   86.5s] cuadro 663 (41/121) 1.1 s
+[   97.6s] cuadro 673 (51/121) 1.1 s
+[  108.4s] cuadro 683 (61/121) 1.1 s
+[  123.1s] cuadro 693 (71/121) 2.0 s
+[  136.9s] cuadro 703 (81/121) 0.9 s
+[  146.5s] cuadro 713 (91/121) 1.0 s
+[  156.4s] cuadro 723 (101/121) 1.0 s
+[  167.1s] cuadro 733 (111/121) 1.1 s
+[  179.1s] cuadro 743 (121/121) 1.2 s
+[  179.7s] LISTO t04: cuadros 623-743 en 180 s
