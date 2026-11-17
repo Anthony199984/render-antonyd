@@ -1,13 +1,13 @@
-[    0.4s] escena lista: 2692 cuadros a 60 fps
-[   33.5s] cuadro 2340 (1/96) 33.1 s
-[   51.5s] cuadro 2350 (11/96) 1.8 s
-[   69.1s] cuadro 2360 (21/96) 1.8 s
-[   86.6s] cuadro 2370 (31/96) 1.7 s
-[  104.3s] cuadro 2380 (41/96) 1.8 s
-[  122.0s] cuadro 2390 (51/96) 1.8 s
-[  139.7s] cuadro 2400 (61/96) 1.8 s
-[  157.6s] cuadro 2410 (71/96) 1.8 s
-[  175.7s] cuadro 2420 (81/96) 1.8 s
-[  193.8s] cuadro 2430 (91/96) 1.8 s
-[  202.9s] cuadro 2435 (96/96) 1.8 s
-[  204.8s] LISTO t17: cuadros 2340-2435 en 205 s
+[    0.5s] escena lista: 2692 cuadros a 60 fps
+[   37.1s] cuadro 2340 (1/96) 36.6 s
+[   58.1s] cuadro 2350 (11/96) 2.0 s
+[   78.6s] cuadro 2360 (21/96) 2.1 s
+[   99.2s] cuadro 2370 (31/96) 2.1 s
+[  119.9s] cuadro 2380 (41/96) 2.1 s
+[  140.9s] cuadro 2390 (51/96) 2.1 s
+[  161.8s] cuadro 2400 (61/96) 2.1 s
+[  182.8s] cuadro 2410 (71/96) 2.1 s
+[  203.7s] cuadro 2420 (81/96) 2.1 s
+[  224.7s] cuadro 2430 (91/96) 2.1 s
+[  235.3s] cuadro 2435 (96/96) 2.2 s
+[  237.5s] LISTO t17: cuadros 2340-2435 en 238 s

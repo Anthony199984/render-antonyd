@@ -1,1 +1,20 @@
-[    1.1s] escena lista: 2692 cuadros a 60 fps
+[    0.5s] escena lista: 2692 cuadros a 60 fps
+[  111.9s] cuadro 0 (1/166) 111.4 s
+[  138.8s] cuadro 10 (11/166) 2.7 s
+[  165.2s] cuadro 20 (21/166) 2.6 s
+[  191.7s] cuadro 30 (31/166) 2.6 s
+[  217.6s] cuadro 40 (41/166) 2.6 s
+[  240.5s] cuadro 50 (51/166) 2.3 s
+[  263.2s] cuadro 60 (61/166) 2.2 s
+[  289.0s] cuadro 70 (71/166) 2.6 s
+[  315.1s] cuadro 80 (81/166) 2.6 s
+[  339.9s] cuadro 90 (91/166) 2.2 s
+[  362.1s] cuadro 100 (101/166) 2.3 s
+[  384.4s] cuadro 110 (111/166) 2.1 s
+[  406.8s] cuadro 120 (121/166) 2.4 s
+[  430.8s] cuadro 130 (131/166) 2.7 s
+[  457.4s] cuadro 140 (141/166) 2.3 s
+[  480.9s] cuadro 150 (151/166) 2.3 s
+[  504.9s] cuadro 160 (161/166) 2.4 s
+[  516.5s] cuadro 165 (166/166) 2.3 s
+[  519.0s] LISTO t00: cuadros 0-165 en 519 s

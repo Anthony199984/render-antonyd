@@ -1,1 +1,15 @@
-[    0.8s] escena lista: 2692 cuadros a 60 fps
+[    0.4s] escena lista: 2692 cuadros a 60 fps
+[   48.3s] cuadro 1630 (1/114) 47.9 s
+[   71.0s] cuadro 1640 (11/114) 2.2 s
+[   93.3s] cuadro 1650 (21/114) 2.3 s
+[  116.1s] cuadro 1660 (31/114) 2.2 s
+[  138.4s] cuadro 1670 (41/114) 2.2 s
+[  160.6s] cuadro 1680 (51/114) 2.2 s
+[  184.2s] cuadro 1690 (61/114) 3.8 s
+[  222.1s] cuadro 1700 (71/114) 3.8 s
+[  254.8s] cuadro 1710 (81/114) 1.9 s
+[  274.0s] cuadro 1720 (91/114) 1.9 s
+[  294.9s] cuadro 1730 (101/114) 2.3 s
+[  318.1s] cuadro 1740 (111/114) 2.4 s
+[  324.2s] cuadro 1743 (114/114) 2.0 s
+[  326.9s] LISTO t11: cuadros 1630-1743 en 327 s

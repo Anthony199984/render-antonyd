@@ -1,1 +1,19 @@
-[    0.5s] escena lista: 2692 cuadros a 60 fps
+[    0.7s] escena lista: 2692 cuadros a 60 fps
+[   47.7s] cuadro 1016 (1/160) 47.0 s
+[   57.7s] cuadro 1026 (11/160) 1.0 s
+[   67.4s] cuadro 1036 (21/160) 1.0 s
+[   77.1s] cuadro 1046 (31/160) 1.0 s
+[   86.9s] cuadro 1056 (41/160) 1.0 s
+[   96.9s] cuadro 1066 (51/160) 1.0 s
+[  106.8s] cuadro 1076 (61/160) 1.0 s
+[  116.5s] cuadro 1086 (71/160) 1.0 s
+[  126.6s] cuadro 1096 (81/160) 1.0 s
+[  150.5s] cuadro 1106 (91/160) 2.9 s
+[  177.6s] cuadro 1116 (101/160) 1.9 s
+[  196.9s] cuadro 1126 (111/160) 1.9 s
+[  216.4s] cuadro 1136 (121/160) 1.9 s
+[  235.7s] cuadro 1146 (131/160) 1.9 s
+[  255.1s] cuadro 1156 (141/160) 2.0 s
+[  274.5s] cuadro 1166 (151/160) 2.0 s
+[  291.8s] cuadro 1175 (160/160) 1.9 s
+[  294.0s] LISTO t07: cuadros 1016-1175 en 294 s
