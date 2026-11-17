@@ -4,3 +4,4 @@ pillow==12.3.0
 opencv-python==5.0.0.93
 defusedxml==0.7.1
 imageio-ffmpeg
+scikit-image==0.26.0
