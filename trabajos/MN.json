@@ -1,132 +1,132 @@
 {
- "nombre": "vaca_ventana_FINAL_1080",
- "video": "videos/vaca_ventana/render_github_vaca.py",
- "ancho": 1080,
- "alto": 1920,
+ "nombre": "vaca_infla_borrador_540",
+ "video": "videos/vaca_infla/render_github_infla.py",
+ "ancho": 540,
+ "alto": 960,
  "fps": 60,
- "sha": "f1555e44509aa40f40696515ed0e022955f22ea676d16d7655c9d668b8a3a0c6",
+ "sha": "1bdd7abce97601a1fcf9f3c32458090f245b38848d97d42be6d7ab1dfcf25934",
  "crf": 18,
  "modo": "render",
  "trozos": [
   {
    "id": "t00",
    "k0": 0,
-   "k1": 166,
-   "toma": "apertura"
+   "k1": 167,
+   "toma": "gancho"
   },
   {
    "id": "t01",
-   "k0": 166,
-   "k1": 332,
-   "toma": "apertura"
+   "k0": 167,
+   "k1": 334,
+   "toma": "gancho"
   },
   {
    "id": "t02",
-   "k0": 332,
-   "k1": 499,
-   "toma": "apertura"
+   "k0": 334,
+   "k1": 502,
+   "toma": "gancho"
   },
   {
    "id": "t03",
-   "k0": 499,
-   "k1": 618,
-   "toma": "toma3"
+   "k0": 502,
+   "k1": 623,
+   "toma": "p3"
   },
   {
    "id": "t04",
-   "k0": 618,
-   "k1": 737,
-   "toma": "toma3"
+   "k0": 623,
+   "k1": 744,
+   "toma": "p3"
   },
   {
    "id": "t05",
-   "k0": 737,
-   "k1": 856,
-   "toma": "toma3"
+   "k0": 744,
+   "k1": 906,
+   "toma": "p4"
   },
   {
    "id": "t06",
-   "k0": 856,
-   "k1": 1016,
-   "toma": "toma4"
+   "k0": 906,
+   "k1": 1069,
+   "toma": "p4"
   },
   {
    "id": "t07",
-   "k0": 1016,
-   "k1": 1176,
-   "toma": "toma4"
+   "k0": 1069,
+   "k1": 1266,
+   "toma": "p5"
   },
   {
    "id": "t08",
-   "k0": 1176,
-   "k1": 1346,
-   "toma": "toma5"
+   "k0": 1266,
+   "k1": 1464,
+   "toma": "p5"
   },
   {
    "id": "t09",
-   "k0": 1346,
-   "k1": 1517,
-   "toma": "toma5"
+   "k0": 1464,
+   "k1": 1575,
+   "toma": "p6"
   },
   {
    "id": "t10",
-   "k0": 1517,
-   "k1": 1630,
-   "toma": "toma6"
+   "k0": 1575,
+   "k1": 1686,
+   "toma": "p6"
   },
   {
    "id": "t11",
-   "k0": 1630,
-   "k1": 1744,
-   "toma": "toma6"
+   "k0": 1686,
+   "k1": 1806,
+   "toma": "p7"
   },
   {
    "id": "t12",
-   "k0": 1744,
-   "k1": 1855,
-   "toma": "toma7"
+   "k0": 1806,
+   "k1": 1926,
+   "toma": "p7"
   },
   {
    "id": "t13",
-   "k0": 1855,
-   "k1": 1967,
-   "toma": "toma7"
+   "k0": 1926,
+   "k1": 2046,
+   "toma": "p7"
   },
   {
    "id": "t14",
-   "k0": 1967,
-   "k1": 2105,
-   "toma": "toma8"
+   "k0": 2046,
+   "k1": 2166,
+   "toma": "p7"
   },
   {
    "id": "t15",
-   "k0": 2105,
-   "k1": 2244,
-   "toma": "toma8"
+   "k0": 2166,
+   "k1": 2345,
+   "toma": "p8"
   },
   {
    "id": "t16",
-   "k0": 2244,
-   "k1": 2340,
-   "toma": "toma9"
+   "k0": 2345,
+   "k1": 2525,
+   "toma": "p8"
   },
   {
    "id": "t17",
-   "k0": 2340,
-   "k1": 2436,
-   "toma": "toma9"
+   "k0": 2525,
+   "k1": 2705,
+   "toma": "p8"
   },
   {
    "id": "t18",
-   "k0": 2436,
-   "k1": 2564,
-   "toma": "toma10"
+   "k0": 2705,
+   "k1": 2903,
+   "toma": "p9"
   },
   {
    "id": "t19",
-   "k0": 2564,
-   "k1": 2692,
-   "toma": "toma10"
+   "k0": 2903,
+   "k1": 3102,
+   "toma": "p9"
   }
  ]
 }
