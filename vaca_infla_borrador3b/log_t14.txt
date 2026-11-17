@@ -1,0 +1,1 @@
+[    0.0s] escena lista: 3078 cuadros a 60 fps
