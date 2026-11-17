@@ -1,10 +1,10 @@
 {
- "nombre": "vaca_infla_borrador_540",
+ "nombre": "vaca_infla_borrador2",
  "video": "videos/vaca_infla/render_github_infla.py",
  "ancho": 540,
  "alto": 960,
  "fps": 60,
- "sha": "1bdd7abce97601a1fcf9f3c32458090f245b38848d97d42be6d7ab1dfcf25934",
+ "sha": "fedc6210b1aeed24cfc3e7532ca11de6a209e1cbf30e8a9000e41a8ed891156e",
  "crf": 18,
  "modo": "render",
  "trozos": [
@@ -119,13 +119,13 @@
   {
    "id": "t18",
    "k0": 2705,
-   "k1": 2903,
+   "k1": 2891,
    "toma": "p9"
   },
   {
    "id": "t19",
-   "k0": 2903,
-   "k1": 3102,
+   "k0": 2891,
+   "k1": 3078,
    "toma": "p9"
   }
  ]
