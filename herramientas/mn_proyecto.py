@@ -26,7 +26,7 @@ for k in ks: im = V.cuadro(k); assert im.shape[:2] == ({ALTO}, {ANCHO}), im.shap
 json.dump(dict(cuadros=n, fps=fps), open({os.path.join(tmp, "info.json")!r}, "w"))
 ''')
 t0 = time.time()
-r = subprocess.run(['strace', '-f', '-e', 'trace=openat,open', '-o', os.path.join(tmp, 'st.txt'), sys.executable, prueba], text=True, capture_output=True)
+r = subprocess.run(['strace', '-f', '-e', 'trace=openat,open,stat,newfstatat,statx,lstat', '-o', os.path.join(tmp, 'st.txt'), sys.executable, prueba], text=True, capture_output=True)
 if r.returncode: print(r.stdout[-2000:], r.stderr[-3000:]); sys.exit('el video falló aquí: no se sube nada')
 info = json.load(open(os.path.join(tmp, 'info.json')))
 import re
