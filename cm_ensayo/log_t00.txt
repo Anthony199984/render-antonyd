@@ -1,0 +1,4 @@
+[  117.6s] escena lista: 2626 cuadros a 60 fps
+[  124.2s] cuadro 1395 (1/9) 6.5 s
+[  146.7s] cuadro 1403 (9/9) 2.7 s
+[  147.2s] LISTO t00: cuadros 1395-1403 en 147 s
