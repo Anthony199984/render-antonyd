@@ -1,1 +1,16 @@
-[   71.4s] escena lista: 2626 cuadros a 60 fps
+[   73.3s] escena lista: 2626 cuadros a 60 fps
+[   79.5s] cuadro 1969 (1/131) 6.2 s
+[  109.5s] cuadro 1979 (11/131) 3.0 s
+[  139.3s] cuadro 1989 (21/131) 3.0 s
+[  169.0s] cuadro 1999 (31/131) 2.9 s
+[  195.6s] cuadro 2009 (41/131) 2.6 s
+[  222.8s] cuadro 2019 (51/131) 2.7 s
+[  249.3s] cuadro 2029 (61/131) 2.7 s
+[  275.7s] cuadro 2039 (71/131) 2.6 s
+[  301.8s] cuadro 2049 (81/131) 2.6 s
+[  328.2s] cuadro 2059 (91/131) 2.6 s
+[  354.4s] cuadro 2069 (101/131) 2.7 s
+[  381.0s] cuadro 2079 (111/131) 2.6 s
+[  408.9s] cuadro 2089 (121/131) 2.9 s
+[  438.0s] cuadro 2099 (131/131) 2.9 s
+[  440.0s] LISTO t15: cuadros 1969-2099 en 440 s

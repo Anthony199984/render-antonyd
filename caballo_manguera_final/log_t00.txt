@@ -1,16 +1,16 @@
-[   73.2s] escena lista: 2626 cuadros a 60 fps
-[   78.2s] cuadro 0 (1/131) 4.9 s
-[  100.3s] cuadro 10 (11/131) 2.2 s
-[  122.4s] cuadro 20 (21/131) 2.2 s
-[  144.1s] cuadro 30 (31/131) 2.2 s
-[  165.7s] cuadro 40 (41/131) 2.2 s
-[  187.7s] cuadro 50 (51/131) 2.2 s
-[  209.9s] cuadro 60 (61/131) 2.2 s
-[  232.1s] cuadro 70 (71/131) 2.2 s
-[  254.3s] cuadro 80 (81/131) 2.2 s
-[  276.5s] cuadro 90 (91/131) 2.2 s
-[  298.7s] cuadro 100 (101/131) 2.2 s
-[  320.7s] cuadro 110 (111/131) 2.2 s
-[  342.9s] cuadro 120 (121/131) 2.2 s
-[  365.6s] cuadro 130 (131/131) 2.3 s
-[  367.3s] LISTO t00: cuadros 0-130 en 367 s
+[   72.4s] escena lista: 2626 cuadros a 60 fps
+[   77.4s] cuadro 0 (1/131) 4.9 s
+[   99.7s] cuadro 10 (11/131) 2.2 s
+[  121.7s] cuadro 20 (21/131) 2.2 s
+[  143.2s] cuadro 30 (31/131) 2.2 s
+[  164.9s] cuadro 40 (41/131) 2.2 s
+[  186.7s] cuadro 50 (51/131) 2.2 s
+[  208.7s] cuadro 60 (61/131) 2.2 s
+[  231.1s] cuadro 70 (71/131) 2.2 s
+[  253.1s] cuadro 80 (81/131) 2.2 s
+[  275.1s] cuadro 90 (91/131) 2.2 s
+[  297.0s] cuadro 100 (101/131) 2.2 s
+[  319.0s] cuadro 110 (111/131) 2.2 s
+[  341.1s] cuadro 120 (121/131) 2.2 s
+[  363.1s] cuadro 130 (131/131) 2.2 s
+[  364.8s] LISTO t00: cuadros 0-130 en 365 s

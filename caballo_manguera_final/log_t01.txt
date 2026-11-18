@@ -1,16 +1,16 @@
-[   75.7s] escena lista: 2626 cuadros a 60 fps
-[   81.0s] cuadro 131 (1/131) 5.2 s
-[  103.9s] cuadro 141 (11/131) 2.2 s
-[  127.3s] cuadro 151 (21/131) 2.4 s
-[  150.7s] cuadro 161 (31/131) 2.4 s
-[  174.3s] cuadro 171 (41/131) 2.4 s
-[  198.2s] cuadro 181 (51/131) 2.4 s
-[  222.4s] cuadro 191 (61/131) 2.4 s
-[  244.4s] cuadro 201 (71/131) 2.2 s
-[  266.9s] cuadro 211 (81/131) 2.4 s
-[  290.7s] cuadro 221 (91/131) 2.4 s
-[  314.5s] cuadro 231 (101/131) 2.4 s
-[  338.3s] cuadro 241 (111/131) 2.4 s
-[  362.5s] cuadro 251 (121/131) 2.5 s
-[  386.9s] cuadro 261 (131/131) 2.4 s
-[  389.4s] LISTO t01: cuadros 131-261 en 389 s
+[   72.2s] escena lista: 2626 cuadros a 60 fps
+[   77.3s] cuadro 131 (1/131) 5.1 s
+[   99.8s] cuadro 141 (11/131) 2.2 s
+[  122.7s] cuadro 151 (21/131) 2.3 s
+[  145.9s] cuadro 161 (31/131) 2.3 s
+[  169.2s] cuadro 171 (41/131) 2.3 s
+[  192.7s] cuadro 181 (51/131) 2.4 s
+[  216.8s] cuadro 191 (61/131) 2.4 s
+[  238.3s] cuadro 201 (71/131) 2.1 s
+[  260.5s] cuadro 211 (81/131) 2.4 s
+[  283.9s] cuadro 221 (91/131) 2.3 s
+[  307.6s] cuadro 231 (101/131) 2.4 s
+[  331.1s] cuadro 241 (111/131) 2.3 s
+[  354.8s] cuadro 251 (121/131) 2.4 s
+[  378.9s] cuadro 261 (131/131) 2.4 s
+[  381.4s] LISTO t01: cuadros 131-261 en 381 s
