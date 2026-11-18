@@ -1,10 +1,10 @@
 {
- "nombre": "caballo_manguera_final",
+ "nombre": "caballo_manguera_final4",
  "video": "videos/caballo_manguera/render_github_cm.py",
  "ancho": 1080,
  "alto": 1920,
  "fps": 60,
- "sha": "f0482b80a73fc925d44f5021c8cb72e074d34ec582bb9483bbed24aff328ae6f",
+ "sha": "b3dae85d4995b98d2b47842c9a2ae6e5f305e3fe1ea29ce96e6716d28f0fb8aa",
  "crf": 18,
  "modo": "render",
  "trozos": [
