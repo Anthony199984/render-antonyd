@@ -1,10 +1,10 @@
 {
- "nombre": "vaca_ojos_final",
+ "nombre": "vaca_ojos_previa2",
  "video": "videos/vaca_ojos/render_github_vaca_ojos.py",
- "ancho": 1080,
- "alto": 1920,
+ "ancho": 540,
+ "alto": 960,
  "fps": 30,
- "sha": "de60c3b88951a714af3ef63dd0a610a191a8a7d47068feed69744dde962726dd",
+ "sha": "978bbad4daff5fb589d12ef3e69ffb4f415dec1f43549658b01ea01c19c4e567",
  "crf": 18,
  "modo": "render",
  "trozos": [
