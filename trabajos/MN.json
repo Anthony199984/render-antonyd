@@ -1,10 +1,10 @@
 {
- "nombre": "pollitos_vista",
+ "nombre": "pollitos_final_v2",
  "video": "videos/pollitos/pollitos_render.py",
- "ancho": 540,
- "alto": 960,
+ "ancho": 1080,
+ "alto": 1920,
  "fps": 30.0,
- "sha": "137a6dc0ab4a136978b23c0b8a35397309413497a83c5ebecf5f1cf0f3f307fc",
+ "sha": "6844cb3c4196bc71cbe11e5cb921efd5e5708de0e3650eb50bb57bdc26d483ef",
  "crf": 18,
  "modo": "render",
  "trozos": [
