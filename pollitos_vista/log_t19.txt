@@ -1,0 +1,11 @@
+[    0.0s] escena lista: 1444 cuadros a 30 fps
+[   34.4s] cuadro 1371 (1/73) 34.1 s
+[   45.5s] cuadro 1381 (11/73) 1.2 s
+[   56.6s] cuadro 1391 (21/73) 1.3 s
+[   68.3s] cuadro 1401 (31/73) 1.3 s
+[   81.9s] cuadro 1411 (41/73) 1.5 s
+[   97.6s] cuadro 1421 (51/73) 1.5 s
+[  112.9s] cuadro 1431 (61/73) 1.5 s
+[  125.3s] cuadro 1441 (71/73) 1.4 s
+[  127.5s] cuadro 1443 (73/73) 1.4 s
+[  127.8s] LISTO t19: cuadros 1371-1443 en 128 s
