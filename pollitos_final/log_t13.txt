@@ -1,0 +1,11 @@
+[    0.0s] escena lista: 1444 cuadros a 30 fps
+[   13.8s] cuadro 938 (1/72) 13.7 s
+[   33.5s] cuadro 948 (11/72) 2.4 s
+[   43.1s] cuadro 958 (21/72) 0.8 s
+[   51.4s] cuadro 968 (31/72) 0.9 s
+[   60.1s] cuadro 978 (41/72) 0.9 s
+[   69.4s] cuadro 988 (51/72) 0.9 s
+[   80.4s] cuadro 998 (61/72) 1.4 s
+[   90.8s] cuadro 1008 (71/72) 0.9 s
+[   91.6s] cuadro 1009 (72/72) 0.9 s
+[   93.0s] LISTO t13: cuadros 938-1009 en 93 s
