@@ -1,0 +1,10 @@
+[   97.5s] escena lista: 1423 cuadros a 30 fps
+[  106.8s] cuadro 1280 (1/71) 9.3 s
+[  150.0s] cuadro 1290 (11/71) 4.3 s
+[  192.5s] cuadro 1300 (21/71) 4.2 s
+[  234.5s] cuadro 1310 (31/71) 4.2 s
+[  276.9s] cuadro 1320 (41/71) 4.2 s
+[  319.3s] cuadro 1330 (51/71) 4.3 s
+[  361.7s] cuadro 1340 (61/71) 4.3 s
+[  404.3s] cuadro 1350 (71/71) 4.3 s
+[  407.0s] LISTO t18: cuadros 1280-1350 en 407 s
