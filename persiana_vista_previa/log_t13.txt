@@ -1,9 +1,9 @@
-[   37.9s] escena lista: 1237 cuadros a 30 fps
-[   42.3s] cuadro 804 (1/61) 4.3 s
-[   48.8s] cuadro 814 (11/61) 0.6 s
-[   55.3s] cuadro 824 (21/61) 0.8 s
-[   61.1s] cuadro 834 (31/61) 0.6 s
-[   67.1s] cuadro 844 (41/61) 0.6 s
-[   73.5s] cuadro 854 (51/61) 0.6 s
-[   79.8s] cuadro 864 (61/61) 0.6 s
-[   80.2s] LISTO t13: cuadros 804-864 en 80 s
+[   38.5s] escena lista: 1237 cuadros a 30 fps
+[   43.0s] cuadro 804 (1/61) 4.4 s
+[   49.5s] cuadro 814 (11/61) 0.6 s
+[   55.9s] cuadro 824 (21/61) 0.8 s
+[   61.7s] cuadro 834 (31/61) 0.6 s
+[   67.5s] cuadro 844 (41/61) 0.6 s
+[   73.9s] cuadro 854 (51/61) 0.6 s
+[   80.1s] cuadro 864 (61/61) 0.6 s
+[   80.5s] LISTO t13: cuadros 804-864 en 80 s

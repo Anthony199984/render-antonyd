@@ -1,10 +1,10 @@
-[   38.9s] escena lista: 1237 cuadros a 30 fps
-[   43.5s] cuadro 1051 (1/62) 4.5 s
-[   51.3s] cuadro 1061 (11/62) 0.7 s
-[   58.6s] cuadro 1071 (21/62) 0.7 s
-[   85.1s] cuadro 1081 (31/62) 0.7 s
-[   91.9s] cuadro 1091 (41/62) 0.7 s
-[   98.6s] cuadro 1101 (51/62) 0.7 s
-[  105.3s] cuadro 1111 (61/62) 0.7 s
-[  106.0s] cuadro 1112 (62/62) 0.7 s
-[  106.4s] LISTO t17: cuadros 1051-1112 en 106 s
+[   42.5s] escena lista: 1237 cuadros a 30 fps
+[   48.0s] cuadro 1051 (1/62) 5.5 s
+[   58.1s] cuadro 1061 (11/62) 1.0 s
+[   67.7s] cuadro 1071 (21/62) 0.9 s
+[  100.6s] cuadro 1081 (31/62) 0.9 s
+[  109.4s] cuadro 1091 (41/62) 0.9 s
+[  118.0s] cuadro 1101 (51/62) 0.9 s
+[  126.6s] cuadro 1111 (61/62) 0.9 s
+[  127.5s] cuadro 1112 (62/62) 0.9 s
+[  128.1s] LISTO t17: cuadros 1051-1112 en 128 s
