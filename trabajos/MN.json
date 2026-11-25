@@ -1,10 +1,10 @@
 {
- "nombre": "persiana_vista_previa_5",
+ "nombre": "persiana_vista_previa_6",
  "video": "videos/persiana/codigo/video_persiana.py",
  "ancho": 540,
  "alto": 960,
  "fps": 30,
- "sha": "4485e6679650ac1cf43bc9b744a6cf63acdcff6ec2d503f9115790145b291bfa",
+ "sha": "c4248e2a86b3cb5c652ca64ac761a32c949fbdfa015798bd3b62a3e987e16ea1",
  "crf": 18,
  "modo": "render",
  "trozos": [
