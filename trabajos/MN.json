@@ -1,10 +1,10 @@
 {
- "nombre": "persiana_vp10_tramos",
+ "nombre": "persiana_vp10b_tramos",
  "video": "videos/persiana/codigo/video_persiana.py",
  "ancho": 540,
  "alto": 960,
  "fps": 30,
- "sha": "a0eb6378799719b65fc60e9089b9fda1c838dc1a06dc262a79f066e17e5bcd8c",
+ "sha": "2a90e5f17ada5fc09f9426b54d393bb8589c1c1be97a2fcc7c8a53b738624536",
  "crf": 18,
  "modo": "render",
  "trozos": [
