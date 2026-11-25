@@ -17,7 +17,7 @@ subprocess.run([ff, '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-
 r = subprocess.run([ff, '-i', out, '-map', '0:v:0', '-c', 'copy', '-f', 'null', '-'], capture_output=True, text=True).stderr
 import re
 nf = int(re.findall(r'frame=\s*(\d+)', r)[-1]) if re.findall(r'frame=\s*(\d+)', r) else -1
-total = plan['trozos'][-1]['k1'] - plan['trozos'][0]['k0']
+total = sum(t['k1'] - t['k0'] for t in plan['trozos'])                 # vale también para tramos sueltos (rehacer solo partes)
 inf.append(f"\nVIDEO: {nf} cuadros (deben ser {total}) · {plan['ancho']}x{plan['alto']} · {os.path.getsize(out) / 1e6:.1f} MB")
 open(f'{RES}/INFORME.md', 'w').write('\n'.join(inf) + '\n'); print('\n'.join(inf))
 sys.exit(0 if nf == total else 1)
