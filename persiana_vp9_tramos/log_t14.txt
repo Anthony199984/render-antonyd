@@ -1,0 +1,5 @@
+[   42.9s] escena lista: 1237 cuadros a 30 fps
+[   48.0s] cuadro 662 (1/14) 5.0 s
+[   58.3s] cuadro 672 (11/14) 1.0 s
+[   61.4s] cuadro 675 (14/14) 1.0 s
+[   61.6s] LISTO t14: cuadros 662-675 en 62 s
