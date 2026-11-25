@@ -1,0 +1,5 @@
+[   38.4s] escena lista: 1237 cuadros a 30 fps
+[   59.0s] cuadro 1077 (1/21) 20.5 s
+[   74.7s] cuadro 1087 (11/21) 1.6 s
+[   91.0s] cuadro 1097 (21/21) 1.6 s
+[   91.3s] LISTO t20: cuadros 1077-1097 en 91 s

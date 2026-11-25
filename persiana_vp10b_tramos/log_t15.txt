@@ -1,0 +1,5 @@
+[   35.2s] escena lista: 1237 cuadros a 30 fps
+[   53.5s] cuadro 924 (1/21) 18.2 s
+[   67.3s] cuadro 934 (11/21) 1.4 s
+[   81.2s] cuadro 944 (21/21) 1.4 s
+[   81.6s] LISTO t15: cuadros 924-944 en 82 s
