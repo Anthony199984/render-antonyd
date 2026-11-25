@@ -1,0 +1,6 @@
+[   52.2s] escena lista: 1237 cuadros a 30 fps
+[   63.7s] cuadro 1191 (1/23) 11.5 s
+[   71.0s] cuadro 1201 (11/23) 0.7 s
+[   75.6s] cuadro 1211 (21/23) 0.3 s
+[   76.2s] cuadro 1213 (23/23) 0.3 s
+[   76.6s] LISTO t21: cuadros 1191-1213 en 77 s
