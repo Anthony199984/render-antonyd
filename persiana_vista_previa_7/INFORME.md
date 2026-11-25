@@ -1,17 +1,24 @@
 # persiana_vista_previa_7
 
-- t00: cuadros 0-60, 93.7 s
-- t01: cuadros 61-122, 78.8 s
-- t03: cuadros 185-246, 87.3 s
-- t04: cuadros 247-308, 86.8 s
-- t05: cuadros 309-370, 85.2 s
-- t06: cuadros 371-431, 91.2 s
-- t07: cuadros 432-493, 80.3 s
-- t08: cuadros 494-555, 78.2 s
-- t09: cuadros 556-617, 84.1 s
-- t10: cuadros 618-679, 79.1 s
-- t11: cuadros 680-741, 58.2 s
-- t12: cuadros 742-803, 86.6 s
-- t18: cuadros 1113-1174, 95.4 s
+- t00: cuadros 0-60, 78.5 s
+- t01: cuadros 61-122, 77.9 s
+- t02: cuadros 123-184, 62.7 s
+- t03: cuadros 185-246, 77.6 s
+- t04: cuadros 247-308, 86.3 s
+- t05: cuadros 309-370, 84.5 s
+- t06: cuadros 371-431, 77.2 s
+- t07: cuadros 432-493, 79.5 s
+- t08: cuadros 494-555, 78.6 s
+- t09: cuadros 556-617, 83.6 s
+- t10: cuadros 618-679, 90.4 s
+- t11: cuadros 680-741, 84.6 s
+- t12: cuadros 742-803, 57.1 s
+- t13: cuadros 804-864, 98.9 s
+- t14: cuadros 865-926, 124.5 s
+- t15: cuadros 927-988, 110.3 s
+- t16: cuadros 989-1050, 115.4 s
+- t17: cuadros 1051-1112, 122.2 s
+- t18: cuadros 1113-1174, 117.3 s
+- t19: cuadros 1175-1236, 73.1 s
 
-FALTAN pedazos: ['t02', 't13', 't14', 't15', 't16', 't17', 't19'] (rehacerlos con mn_plan.py --solo)
+VIDEO: 1237 cuadros (deben ser 1237) · 540x960 · 30.0 MB

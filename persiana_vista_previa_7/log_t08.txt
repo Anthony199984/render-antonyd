@@ -1,10 +1,10 @@
-[   39.3s] escena lista: 1237 cuadros a 30 fps
-[   40.9s] cuadro 494 (1/62) 1.6 s
-[   46.3s] cuadro 504 (11/62) 0.5 s
-[   51.4s] cuadro 514 (21/62) 0.5 s
-[   56.3s] cuadro 524 (31/62) 0.5 s
-[   60.7s] cuadro 534 (41/62) 0.4 s
-[   69.6s] cuadro 544 (51/62) 0.7 s
-[   77.1s] cuadro 554 (61/62) 0.8 s
-[   77.8s] cuadro 555 (62/62) 0.8 s
-[   78.2s] LISTO t08: cuadros 494-555 en 78 s
+[   37.3s] escena lista: 1237 cuadros a 30 fps
+[   39.0s] cuadro 494 (1/62) 1.6 s
+[   44.7s] cuadro 504 (11/62) 0.5 s
+[   50.1s] cuadro 514 (21/62) 0.5 s
+[   55.3s] cuadro 524 (31/62) 0.5 s
+[   60.0s] cuadro 534 (41/62) 0.5 s
+[   69.2s] cuadro 544 (51/62) 0.8 s
+[   77.3s] cuadro 554 (61/62) 0.8 s
+[   78.1s] cuadro 555 (62/62) 0.8 s
+[   78.6s] LISTO t08: cuadros 494-555 en 79 s
