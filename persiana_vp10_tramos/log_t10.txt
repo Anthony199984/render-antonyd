@@ -1,0 +1,6 @@
+[   41.1s] escena lista: 1237 cuadros a 30 fps
+[   46.1s] cuadro 617 (1/24) 4.9 s
+[   56.1s] cuadro 627 (11/24) 1.0 s
+[   66.3s] cuadro 637 (21/24) 1.0 s
+[   69.4s] cuadro 640 (24/24) 1.0 s
+[   69.7s] LISTO t10: cuadros 617-640 en 70 s
