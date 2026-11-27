@@ -1,0 +1,15 @@
+[   34.1s] escena lista: 2401 cuadros a 60 fps
+[   40.9s] cuadro 720 (1/120) 6.7 s
+[   68.1s] cuadro 730 (11/120) 2.7 s
+[   95.7s] cuadro 740 (21/120) 2.8 s
+[  122.9s] cuadro 750 (31/120) 2.7 s
+[  150.4s] cuadro 760 (41/120) 3.0 s
+[  178.5s] cuadro 770 (51/120) 2.8 s
+[  207.4s] cuadro 780 (61/120) 2.8 s
+[  235.6s] cuadro 790 (71/120) 2.8 s
+[  259.7s] cuadro 800 (81/120) 2.4 s
+[  288.5s] cuadro 810 (91/120) 2.9 s
+[  318.3s] cuadro 820 (101/120) 3.1 s
+[  348.4s] cuadro 830 (111/120) 3.0 s
+[  374.9s] cuadro 839 (120/120) 3.0 s
+[  378.0s] LISTO t06: cuadros 720-839 en 378 s

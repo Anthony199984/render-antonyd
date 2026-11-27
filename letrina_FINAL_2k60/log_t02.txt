@@ -1,0 +1,15 @@
+[   42.7s] escena lista: 2401 cuadros a 60 fps
+[   51.0s] cuadro 240 (1/120) 8.2 s
+[   79.7s] cuadro 250 (11/120) 2.9 s
+[  109.1s] cuadro 260 (21/120) 3.0 s
+[  139.2s] cuadro 270 (31/120) 3.1 s
+[  169.7s] cuadro 280 (41/120) 3.1 s
+[  200.6s] cuadro 290 (51/120) 3.1 s
+[  231.5s] cuadro 300 (61/120) 3.1 s
+[  262.1s] cuadro 310 (71/120) 3.0 s
+[  292.2s] cuadro 320 (81/120) 2.6 s
+[  318.7s] cuadro 330 (91/120) 2.6 s
+[  345.5s] cuadro 340 (101/120) 2.7 s
+[  371.8s] cuadro 350 (111/120) 2.6 s
+[  395.4s] cuadro 359 (120/120) 2.7 s
+[  397.8s] LISTO t02: cuadros 240-359 en 398 s
