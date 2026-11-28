@@ -52,6 +52,8 @@ jobs:
         env:
           CLAVE: ${{ secrets.CLAVE_PROYECTO }}
         run: |
+          mkdir -p salida/${{ matrix.id }}; exec > >(tee -a salida/${{ matrix.id }}/log_${{ matrix.id }}.txt) 2>&1
+          echo "huella de la clave: $(printf '%s' "$CLAVE" | sha256sum | cut -c1-12)"
           pip install -q -r herramientas/req_mn.txt &
           cat zipmn/mn.enc.* > /tmp/mn.enc && rm -rf zipmn/mn.enc.*
           python3 -c "import json;print(json.load(open('trabajos/MN.json'))['sha']+'  /tmp/mn.enc')" | sha256sum -c
