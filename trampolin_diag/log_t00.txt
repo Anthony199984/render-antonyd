@@ -1,0 +1,2 @@
+huella de la clave: 5927934c777a
+/tmp/mn.enc: OK
